@@ -1,0 +1,106 @@
+
+<assembly>
+
+    <id>bin</id>
+
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        
+        <!-- 
+        This fileSets section defines a set of fileSets of the following
+        structure: 
+        <fileSet>
+            <directory>directory/to/copy/from</directory>
+            <outputDirectory>directory/to/copy/to</outputDirectory>
+            <excludes>don't copy these files</excludes>
+            <includes></includes>
+            <...additional tags.../>
+        </fileSet>
+        It defines Sets of Files that will be included in the final assembly.
+        See this for more information:
+        http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html
+        -->
+
+        <!-- Expanded Karaf Standard Distribution -->
+        <fileSet>
+            <directory>target/dependencies/apache-karaf-${karaf.version}</directory>
+            <outputDirectory>/</outputDirectory>
+            <excludes>
+                <!-- don't copy this by default, need special file mode -->
+                <exclude>bin/**</exclude>
+                
+                <!-- these will be added as part of the custom distribution -->
+                <exclude>etc/system.properties</exclude>
+                <exclude>etc/users.properties</exclude>
+                <exclude>etc/org.apache.karaf.features.cfg</exclude>
+                <exclude>etc/org.ops4j.pax.logging.cfg</exclude>
+                <exclude>etc/org.apache.karaf.management.cfg</exclude>
+                <exclude>etc/org.apache.karaf.shell.cfg</exclude>
+                <exclude>etc/org.ops4j.pax.web.cfg</exclude>
+                <exclude>etc/jre.properties</exclude>
+                
+                <!-- particular to karaf's original dist -->
+                <exclude>LICENSE</exclude>
+                <exclude>NOTICE</exclude>
+                <exclude>README</exclude>
+                
+                <!-- unnecessary in a custom dist -->
+                <exclude>**/demos/**</exclude>
+                <exclude>RELEASE-NOTES</exclude>
+                <exclude>karaf-manual*.html</exclude>
+                <exclude>karaf-manual*.pdf</exclude>
+            </excludes>
+        </fileSet>
+
+        <!-- Copy over bin/* separately to get the correct file mode -->
+        <fileSet>
+            <directory>target/classes</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>bin/admin</include>
+                <include>bin/karaf</include>
+                <include>bin/start</include>
+                <include>bin/stop</include>
+            </includes>
+            <fileMode>0755</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+        
+        <fileSet>
+            <directory>target/dependencies</directory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+            <outputDirectory>/lib/</outputDirectory>
+        </fileSet>
+        
+        <fileSet>
+            <directory>src/main/distribution/etc</directory>
+            <outputDirectory>/etc</outputDirectory>
+            <fileMode>0644</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+        
+        <fileSet>
+            <directory>target/classes/etc</directory>
+            <outputDirectory>/etc</outputDirectory>
+            <excludes>
+                <exclude>*formatted</exclude>
+            </excludes>
+            <lineEnding>unix</lineEnding>
+            <fileMode>0644</fileMode>
+            <directoryMode>0755</directoryMode>
+        </fileSet>
+
+        <fileSet>
+            <directory>target/features-repo</directory>
+            <outputDirectory>/system</outputDirectory>
+        </fileSet>
+
+    </fileSets>
+
+</assembly>

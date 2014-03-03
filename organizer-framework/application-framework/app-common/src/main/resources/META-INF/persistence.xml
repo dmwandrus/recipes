@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="app_meta_data_pu" transaction-type="JTA">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/apprepo-postgresds)</jta-data-source>
+    
+        <class>mil.navair.iframework.appframework.common.AppMetaData</class>
+        <class>mil.navair.iframework.appframework.common.BundleMetaData</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    
+        <properties>
+            <property name="openjpa.Log" value="DefaultLevel=TRACE, Tool=INFO, SQL=TRACE"/>
+<!--            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(foreignKeys=true,schemaAction='drop,add')"/>-->
+<property name="openjpa.jdbc.SynchronizeMappings" value="validate"/>
+            <property name="openjpa.jdbc.DBDictionary" value="postgres"/>
+            <!--             <property name="openjpa.BrokerImpl" value="non-finalizing" />  -->
+            <!--             <property name="openjpa.Sequence" value="table(Table=OPENJPASEQ, Increment=100)"/> -->
+            <!--             <property name="openjpa.jdbc.UpdateManager" value="org.apache.openjpa.jdbc.kernel.BatchingConstraintUpdateManager"/> -->
+        </properties>
+    </persistence-unit>
+</persistence>

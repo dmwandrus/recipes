@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>mil.navair.iframework.appframework.repoaccessor</groupId>
+        <artifactId>repo-accessor-service</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+
+    <artifactId>repo-accessor-service-impl</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>if :: ifapp-mgmt :: repo-accessor impl</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>repo-accessor-service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>mil.navair.iframework.appframework</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.ancoron.postgresql</groupId>
+            <artifactId>org.postgresql</artifactId>
+
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        
+        <dependency>
+            <!-- needs extra dependencies: objenesis & hamcrest -->
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>  
+            <version>1.9.5</version> 
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package/>
+                    </instructions>
+                </configuration>
+            </plugin>
+
+<!-- This enables a custom logging configuration in the test -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemProperties>
+                        <property> 
+                            <name>java.util.logging.config.file</name>
+                            <value>src/test/resources/logging.properties</value>
+                        </property>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+
+<!--            <plugin> 
+                <artifactId>maven-dependency-plugin</artifactId> 
+                <version>2.2</version> 
+                <executions> 
+                    <execution> 
+                        <id>get entity classes</id> 
+                        <goals> 
+                            <goal>unpack-dependencies</goal> 
+                        </goals> 
+                        <phase>validate</phase> 
+                        <configuration> 
+                            <includeGroupIds>mil.navair.iframework.appframework</includeGroupIds> 
+                            <includeArtifactIds>common</includeArtifactIds> 
+                            <excludeTransitive>true</excludeTransitive> 
+                            <includes>**/*.class</includes> 
+                            <includes>src/test/resources/META-INF/persistence.xml</includes> 
+                            <outputDirectory>${project.build.directory}/test-classes</outputDirectory> 
+                        </configuration> 
+                    </execution> 
+                </executions> 
+            </plugin> -->
+
+            <plugin>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa-maven-plugin</artifactId>
+                <configuration>
+                    <includes>**/common/*.class</includes>
+<!--            <excludes>**/entities/XML*.class</excludes>-->
+                    <addDefaultConstructor>true</addDefaultConstructor>               
+                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>enhancer</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+<!--                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.openjpa</groupId>
+                        <artifactId>openjpa</artifactId>
+                 set the version to be the same as the level in your runtime 
+                    </dependency>
+                </dependencies>-->
+            </plugin>
+
+        </plugins>
+    </build>
+
+        
+</project>

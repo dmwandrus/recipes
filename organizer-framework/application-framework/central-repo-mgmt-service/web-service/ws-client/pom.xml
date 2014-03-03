@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>mil.navair.iframework.appframework.centralrepomgmt.ws</groupId>
+        <artifactId>central-repo-mgmt-service-ws</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+
+
+
+    <artifactId>central-repo-mgmt-client-ws</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>if :: ifapp-mgmt :: central-repo-mgmt ws client</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-tools-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>central-repo-mgmt-wsdl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <!--
+                            <Export-Package>mil.navair.iframework.appframework.centralrepomgmt.api,mil.navair.iframework.appframework.centralrepomgmt.exceptions</Export-Package>
+                            <Private-Package>mil.navair.iframework.appframework.centralrepomgmt.api.*,mil.navair.iframework.appframework.centralrepomgmt.exceptions.*</Private-Package>
+                        -->
+                    </instructions>
+                </configuration>
+            </plugin>
+            
+            
+            
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>src/main/resources/centralrepomgmt-ws.wsdl</wsdl>
+                                    <extraargs>
+                                        <extraarg>-client</extraarg>
+                                    </extraargs>
+                                    <bindingFiles>
+                                        
+                                    </bindingFiles>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            
+            <plugin> 
+                <artifactId>maven-dependency-plugin</artifactId> 
+                <version>2.2</version> 
+                <executions> 
+                    <execution> 
+                        <id>expand wsdl</id> 
+                        <goals> 
+                            <goal>unpack-dependencies</goal> 
+                        </goals> 
+                        <phase>validate</phase> 
+                        <configuration> 
+                            <includeGroupIds>${project.groupId}</includeGroupIds> 
+                            <includeArtifactIds>centralrepomgmt-wsdl</includeArtifactIds> 
+                            <excludeTransitive>true</excludeTransitive> 
+                            <includes>**/*.wsdl,**/*.xsd</includes> 
+                            <!-- if you have a plain jar as your output, you 
+                                 can put '${project.build.directory}/classes'
+                                 however, since we're using the bundle plugin,
+                                 it has slightly different behavior.  It ignores
+                                 the target directory for some reason, and instead
+                                 goes to src/main/resources and copies everything
+                                 from there into the final bundle.  
+                                 -->
+                            <outputDirectory>src/main/resources</outputDirectory> 
+                        </configuration> 
+                    </execution> 
+                </executions> 
+            </plugin> 
+            
+        </plugins>
+    </build>
+
+        
+</project>

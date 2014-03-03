@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>mil.navair.iframework.common.reporting</groupId>
+        <artifactId>reporting</artifactId>
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>reportUtils</artifactId>
+    <packaging>bundle</packaging>
+    
+    <name>if :: common :: reportUtils</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.4</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>mil.navair.iframework.common.utilities</groupId>
+            <artifactId>p8utils</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>smtp</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.commons-lang</artifactId>
+            <version>2.4_6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.servicemix.bundles</groupId>
+            <artifactId>org.apache.servicemix.bundles.jsch</artifactId>
+            <version>0.1.43_1</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.7</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-Name>reportUtils</Bundle-Name>
+                        <Bundle-SymbolicName>reportUtils</Bundle-SymbolicName>
+                        <Import-Package>
+                            com.jcraft.jsch, 
+                            com.sun.mail.smtp, 
+                            javax.activation, 
+                            javax.mail, 
+                            javax.mail.internet, 
+                            javax.mail.util, 
+                            javax.xml.parsers, 
+                            mil.navair.iframework.common.utilities, 
+                            
+                            org.apache.commons.lang3, 
+                            org.xml.sax, 
+                            org.xml.sax.helpers
+                        </Import-Package>
+                        <Export-Package>
+                            mil.navair.iframework.common.reporting
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

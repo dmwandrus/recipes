@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>mil.navair.iframework</groupId>
+        <artifactId>iframework</artifactId>	
+        <version>1.2-SNAPSHOT</version>
+    </parent>
+    <groupId>mil.navair.iframework.appframework</groupId>
+    <artifactId>application-management-framework</artifactId>
+    <packaging>pom</packaging>
+    <name>if :: ifapp mgmt</name>
+   
+
+  <modules>
+    <module>app-common</module>
+    <module>repo-accessor-service</module>
+    <module>central-repo-mgmt-service</module>
+    <module>aircraft-repo-mgmt-service</module>
+    <module>bundle-mgmt-service</module> 
+  </modules>
+</project>

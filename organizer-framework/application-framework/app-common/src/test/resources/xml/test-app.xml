@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<AppMetaData>
+    <id>25</id>
+    <name>ShortName</name>
+    <longName>This is my long descriptive name</longName>
+    <version>0.1.0</version>
+    <organization>Savvee ATS, Inc</organization>
+    <description>I'm testing things out here.</description>
+    <author>Diane</author>
+    <securityLevel>UNCLASSIFIED</securityLevel>
+    <missionArea>all missions</missionArea>
+    <functionalArea>all functions</functionalArea>
+    <tag>ONE</tag>
+    <tag>Cool</tag>
+    <tag>Charleston</tag>
+    <tag>Savvee</tag>
+    <tag>sample</tag>
+    <bundle>
+        <fileName>bundle2.test</fileName>
+        <expectedCheckSum>e5cee77c800ccdd4421582ca02a54ad5</expectedCheckSum>
+    </bundle>
+    <bundle>
+        <fileName>bundle1.test</fileName>
+        <expectedCheckSum>ec5287c45f0e70ec22d52e8bcbeeb640</expectedCheckSum>
+    </bundle>
+</AppMetaData>
+
+

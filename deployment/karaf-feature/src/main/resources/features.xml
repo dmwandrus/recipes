@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="p8a-if">
+
+<!--    <repository>mvn:org.apache.activemq/activemq-karaf/5.8.0/xml/features</repository>-->
+    <!-- EXTERNAL DEPENDENCIES -->
+    <!-- 
+        These are dependencies that are external libraries. 
+        Prepend with if-dependencies.
+    -->
+    <feature name="deps-xstream">
+        <bundle>wrap:mvn:com.thoughtworks.xstream/xstream/1.4.4</bundle>
+        <bundle>wrap:mvn:joda-time/joda-time/2.0</bundle>
+    </feature>
+    
+    <feature name="deps-commons" >
+        <bundle>mvn:commons-dbcp/commons-dbcp/1.4</bundle>
+        <bundle>mvn:commons-pool/commons-pool/1.5.6</bundle>
+        <bundle>mvn:commons-lang/commons-lang/2.6</bundle>
+        <bundle>mvn:commons-collections/commons-collections/3.2.1</bundle>
+        <bundle>mvn:commons-io/commons-io/2.4</bundle>
+    </feature>
+
+    <feature name="deps-activemq">
+        <bundle>mvn:org.apache.activemq/activemq-osgi/5.8.0</bundle>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-annotation_1.0_spec/1.1.1</bundle>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jms_1.1_spec/1.1.1</bundle>
+        <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1</bundle>
+        <bundle dependency="true">mvn:commons-pool/commons-pool/1.6</bundle>
+        <!-- uber osgi bundle means client is not that lean, todo: introduce client osgi bundle -->
+        <bundle dependency="true">mvn:org.apache.xbean/xbean-spring/3.12</bundle>
+    </feature>
+
+    <feature name="deps-drools">
+        <bundle>mvn:org.antlr/com.springsource.antlr/2.7.6</bundle>
+        <bundle>mvn:com.thoughtworks.xstream/com.springsource.com.thoughtworks.xstream/1.3.1</bundle>
+        <bundle>mvn:org.antlr/com.springsource.org.antlr/3.1.3</bundle>
+        <bundle>mvn:org.antlr/com.springsource.org.antlr.runtime/3.1.3</bundle>
+        <bundle>mvn:org.codehaus.janino/com.springsource.org.codehaus.janino/2.5.15</bundle>
+        <bundle>mvn:org.xmlpull/com.springsource.org.xmlpull/1.1.4.c</bundle>
+        <bundle>mvn:org.drools/knowledge-api/5.5.0.Final</bundle>
+        <bundle>mvn:org.drools/knowledge-internal-api/5.5.0.Final</bundle>
+        <bundle>mvn:org.drools/drools-compiler/5.5.0.Final</bundle>
+        <bundle>mvn:org.drools/drools-core/5.5.0.Final</bundle>
+        <bundle>mvn:org.mvel/mvel2/2.1.3.Final</bundle>
+        <bundle>wrap:mvn:com.google.protobuf/protobuf-java/2.4.1</bundle>
+    </feature>
+
+    <feature name="deps-openjpa">
+        <bundle>wrap:mvn:net.sourceforge.serp/serp/1.13.1</bundle>
+        <bundle>mvn:org.apache.openjpa/openjpa/2.2.1</bundle>
+    </feature>
+
+<feature name="deps-mysql">
+<bundle>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.stax-api-1.0/1.9.0</bundle>
+<bundle>mvn:mysql/mysql-connector-java/5.1.18</bundle>    
+</feature>
+
+    <feature name="recipe-service">
+        <feature>deps-commons</feature>
+        <feature>deps-mysql</feature>
+        <feature>deps-openjpa</feature>
+        <bundle>mvn:com.da.organizer.recipes/recipes-common/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.da.organizer.recipes/recipes-service-api/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:com.da.organizer.recipes/recipes-service-impl/1.0-SNAPSHOT</bundle>
+    </feature>
+    
+</features>

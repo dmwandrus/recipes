@@ -2,22 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.da.organizer.recipes.common.test;
+package com.da.organizer.recipes.common;
 
-import com.da.organizer.recipes.common.Ingredient;
-import com.da.organizer.recipes.common.Recipe;
-import com.da.organizer.recipes.common.RecipeIngredient;
+import com.da.organizer.recipes.common.exception.IngredientParseException;
+import com.da.organizer.recipes.common.testtools.RecipeFactory;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.PersistenceException;
 import javax.persistence.EntityTransaction;
 import java.util.List;
 import javax.persistence.TypedQuery;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,7 +29,7 @@ import static org.junit.Assert.*;
  */
 public class RecipeTest {
 
-    Logger LOG = LoggerFactory.getLogger(RecipeTest.class);
+    Logger LOG = Logger.getLogger(RecipeTest.class);
     private static final String puName = "test_recipe_pu";
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -86,9 +84,10 @@ public class RecipeTest {
     @Test
     public void saveRecipe() {
 
+        try{
         startTX();
         Recipe pbRecipe = RecipeFactory.buildPBJ();
-        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.toLongString());
+        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.prettyPrint());
         Set<Long> ingredientIds = new HashSet<Long>();
         for (RecipeIngredient ri : pbRecipe.getIngredients()) {
 
@@ -98,7 +97,7 @@ public class RecipeTest {
         commitTX();
 
         LOG.info("Ingredients are saved....");
-        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.toLongString());
+        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.prettyPrint());
 
         startTX();
 
@@ -106,11 +105,11 @@ public class RecipeTest {
         commitTX();
 
         startTX();
-        LOG.info("saveRecipe - POST-PERSIST: " + pbRecipe.toLongString());
+        LOG.info("saveRecipe - POST-PERSIST: " + pbRecipe.prettyPrint());
         Recipe found = em.find(Recipe.class, pbRecipe.getId());
         Set<Ingredient> ingredients = new HashSet<Ingredient>();
 
-        LOG.info("saveRecipe - FOUND: " + found.toLongString());
+        LOG.info("saveRecipe - FOUND: " + found.prettyPrint());
         em.remove(pbRecipe);
         for (RecipeIngredient ing : pbRecipe.getIngredients()) {
             em.remove(ing.getIngredient());
@@ -130,17 +129,22 @@ public class RecipeTest {
         LOG.info("Ingredients in db still: " + allIngredients);
 
         commitTX();
+        }catch(Throwable t)
+        {
+            LOG.info("THREW UP: ", t);
+            fail("unable to persist");
+        }
 
     }
 
 //    @Test
-    public void saveRecipeWithoutSavingIngredients() {
+    public void saveRecipeWithoutSavingIngredients() throws IngredientParseException {
         Recipe pbjRecipe = RecipeFactory.buildPBJ();
-        LOG.info("saveRecipe2 - PRE-PERSIST: " + pbjRecipe.toLongString());
+        LOG.info("saveRecipe2 - PRE-PERSIST: " + pbjRecipe.prettyPrint());
         em.persist(pbjRecipe);
-        LOG.info("saveRecipe2 - POST-PERSIST: " + pbjRecipe.toLongString());
+        LOG.info("saveRecipe2 - POST-PERSIST: " + pbjRecipe.prettyPrint());
         Recipe found = em.find(Recipe.class, pbjRecipe.getId());
-        LOG.info("saveRecipe2 - FOUND: " + found.toLongString());
+        LOG.info("saveRecipe2 - FOUND: " + found.prettyPrint());
         em.remove(pbjRecipe);
 
         // Yes, Ingredients must be saved first.  
@@ -150,7 +154,7 @@ public class RecipeTest {
     }
 
     @Test
-    public void saveRecipeWithPreExistingIngredients() {
+    public void saveRecipeWithPreExistingIngredients() throws IngredientParseException {
 
         startTX();
 
@@ -217,12 +221,12 @@ public class RecipeTest {
 
         startTX();
 
-        LOG.info("Pre-persist honey: " + pbhoneyRecipe.toLongString());
+        LOG.info("Pre-persist honey: " + pbhoneyRecipe.prettyPrint());
 
         em.persist(pbhoneyRecipe);
 
-        LOG.info("PBJ (end):  " + pbjRecipe.toLongString());
-        LOG.info("PBH (end):  " + pbhoneyRecipe.toLongString());
+        LOG.info("PBJ (end):  " + pbjRecipe.prettyPrint());
+        LOG.info("PBH (end):  " + pbhoneyRecipe.prettyPrint());
 
 
         commitTX();

@@ -8,9 +8,11 @@ package com.da.organizer.recipes.itest;
 import com.da.organizer.recipes.common.Ingredient;
 import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.common.RecipeIngredient;
-import com.da.organizer.recipes.common.test.RecipeFactory;
+import com.da.organizer.recipes.common.exception.IngredientParseException;
+import com.da.organizer.recipes.common.testtools.RecipeFactory;
 import com.da.organizer.recipes.service.RecipeService;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import static junit.framework.Assert.*;
@@ -84,24 +86,29 @@ public class RecipeITest {
     @Test
     public void savePBJRecipe()
     {
-        List<Ingredient> retrieveIngredients = recipeService.retrieveIngredients();
-        logger.info("\n\n\n\n\n\nundeleted ingredients: "+retrieveIngredients);
-        
-        Recipe pbj = RecipeFactory.buildPBJ();
-        Long recipeId = recipeService.addRecipe(pbj);
-        assertNotNull(recipeId);
-        Recipe retrievedRecipe = recipeService.retrieveRecipe(recipeId);
-        assertEquals(pbj, retrievedRecipe);
-        assertTrue(recipeService.removeRecipe(recipeId));
-        retrievedRecipe = recipeService.retrieveRecipe(recipeId);
-        assertNull(retrievedRecipe);
-        for(RecipeIngredient ri:pbj.getIngredients())
-        {
-            Ingredient retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
-            assertNotNull(retrievedIng);
-            recipeService.removeIngredient(retrievedIng.getId());
-            retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
-            assertNull(retrievedIng);
+        try {
+            List<Ingredient> retrieveIngredients = recipeService.retrieveIngredients();
+            logger.info("\n\n\n\n\n\nundeleted ingredients: "+retrieveIngredients);
+            
+            Recipe pbj = RecipeFactory.buildPBJ();
+            Long recipeId = recipeService.addRecipe(pbj);
+            assertNotNull(recipeId);
+            Recipe retrievedRecipe = recipeService.retrieveRecipe(recipeId);
+            assertEquals(pbj, retrievedRecipe);
+            assertTrue(recipeService.removeRecipe(recipeId));
+            retrievedRecipe = recipeService.retrieveRecipe(recipeId);
+            assertNull(retrievedRecipe);
+            for(RecipeIngredient ri:pbj.getIngredients())
+            {
+                Ingredient retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
+                assertNotNull(retrievedIng);
+                recipeService.removeIngredient(retrievedIng.getId());
+                retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
+                assertNull(retrievedIng);
+            }
+        } catch (IngredientParseException ex) {
+            Logger.getLogger(RecipeITest.class.getName()).log(Level.SEVERE, null, ex);
+            fail("Unable to build recipe");
         }
                 
     }

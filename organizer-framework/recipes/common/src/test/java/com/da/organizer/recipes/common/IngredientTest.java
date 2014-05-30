@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.da.organizer.recipes.common.test;
+package com.da.organizer.recipes.common;
 
+import com.da.organizer.recipes.common.testtools.RecipeFactory;
 import com.da.organizer.recipes.common.Ingredient;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -12,13 +13,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import static org.junit.Assert.*;
 
 /**
@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
  */
 public class IngredientTest {
 
-    Logger LOG = LoggerFactory.getLogger(IngredientTest.class);
+    private static Logger LOG = Logger.getLogger(IngredientTest.class);
     private static final String puName = "test_recipe_pu";
     private static EntityManagerFactory emf;
     private static EntityManager em;
@@ -35,7 +35,12 @@ public class IngredientTest {
     @BeforeClass
     public static void setUpClass() throws Exception {
         emf = Persistence.createEntityManagerFactory(puName);
+        try{
         em = emf.createEntityManager();
+        }catch(Exception ex)
+        {
+            LOG.error("Exception", ex);
+        }
         assertNotNull(em);
     }
 

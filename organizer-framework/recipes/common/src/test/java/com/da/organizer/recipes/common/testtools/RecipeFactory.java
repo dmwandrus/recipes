@@ -2,14 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.da.organizer.recipes.common.test;
+package com.da.organizer.recipes.common.testtools;
 
-import com.da.organizer.recipes.common.test.*;
 import com.da.organizer.recipes.common.Ingredient;
-import com.da.organizer.recipes.common.IngredientUnit;
+import com.da.organizer.recipes.common.Ingredient;
+import com.da.organizer.recipes.common.unit.IngredientUnit;
+import com.da.organizer.recipes.common.unit.IngredientUnit;
+import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.common.RecipeIngredient;
+import com.da.organizer.recipes.common.RecipeIngredient;
 import com.da.organizer.recipes.common.RecipeInstruction;
+import com.da.organizer.recipes.common.RecipeInstruction;
+import com.da.organizer.recipes.common.exception.IngredientParseException;
 
 /**
  *
@@ -18,7 +23,7 @@ import com.da.organizer.recipes.common.RecipeInstruction;
 public class RecipeFactory {
     
     
-    public static Recipe buildPBJ()
+    public static Recipe buildPBJ() throws IngredientParseException
     {
         Recipe recipe = new Recipe();
         recipe.setName("PBJ Sandwich");
@@ -40,7 +45,7 @@ public class RecipeFactory {
         
     }
     
-    public static Recipe buildPBAndHoney()
+    public static Recipe buildPBAndHoney() throws IngredientParseException
     {
         Recipe recipe = new Recipe();
         recipe.setName("PB & Honey Sandwich");
@@ -62,46 +67,42 @@ public class RecipeFactory {
         
     }
     
-    public static RecipeIngredient buildBreadRi()
+    public static RecipeIngredient buildBreadRi() throws IngredientParseException
     {
         RecipeIngredient bread = new RecipeIngredient();
-        bread.setAmount(2.0);
-        bread.setUnit(IngredientUnit.slice);
+        bread.getAmount().setAmountFromString("2");
+        bread.getAmount().setUnit(IngredientUnit.slice);
         bread.setIngredient(buildBread());
-        bread.setDescription("cut the crusts off for true decadence");
         bread.setPrePreparation(" ");
         return bread;
     }
     
-    public static RecipeIngredient buildJamRi()
+    public static RecipeIngredient buildJamRi() throws IngredientParseException
     {
         RecipeIngredient jam = new RecipeIngredient();
-        jam.setAmount(2.0);
-        jam.setUnit(IngredientUnit.tablespoon);
+        jam.getAmount().setAmountFromString("2");
+        jam.getAmount().setUnit(IngredientUnit.tablespoon);
         jam.setIngredient(buildJelly());
-        jam.setDescription("I love thimbleberry!");
         jam.setPrePreparation(" ");
         return jam;
     }
     
-    public static RecipeIngredient buildHoneyRi()
+    public static RecipeIngredient buildHoneyRi() throws IngredientParseException
     {
         RecipeIngredient jam = new RecipeIngredient();
-        jam.setAmount(2.0);
-        jam.setUnit(IngredientUnit.tablespoon);
+        jam.getAmount().setAmountFromString("2");
+        jam.getAmount().setUnit(IngredientUnit.tablespoon);
         jam.setIngredient(buildHoney());
-        jam.setDescription("Tut tut, looks like rain!");
         jam.setPrePreparation(" ");
         return jam;
     }
     
-    public static RecipeIngredient buildPBRi()
+    public static RecipeIngredient buildPBRi() throws IngredientParseException
     {
         RecipeIngredient pb = new RecipeIngredient();
-        pb.setAmount(2.0);
-        pb.setUnit(IngredientUnit.tablespoon);
+        pb.getAmount().setAmountFromString("2.0");
+        pb.getAmount().setUnit(IngredientUnit.tablespoon);
         pb.setIngredient(buildPeanutButter());
-        pb.setDescription("smooth is best");
         pb.setPrePreparation(" ");
         return pb;
     }

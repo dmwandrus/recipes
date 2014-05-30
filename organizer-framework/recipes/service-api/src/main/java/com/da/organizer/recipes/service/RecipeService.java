@@ -10,10 +10,23 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
+ * Basic functions for accessing a recipe & ingredient.
+ * Todo: In time, this may be broken up into a Recipe Service and an Ingredient
+ * Service, as things grow. Recipe service would be dependent on the ingredient 
+ * service, but ingredient service doesn't care about recipes. And then there 
+ * could be a nutrition service & a tag service &&& :)
+ * 
+ * 
+ * 
  * @author dandrus
  */
 public interface RecipeService {
+    /**
+     * This persists a new recipe. 
+     * It does not persist ingredients in that recipe.
+     * @param recipe
+     * @return recipe Id
+     */
     Long addRecipe(Recipe recipe);
     Long addIngredient(Ingredient ingredient);
     

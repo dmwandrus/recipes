@@ -68,6 +68,12 @@ public class Recipe implements Persistable {
     @Column(name = "submitter_name")
     private String submitterName;
     
+    @Column(name = "prep_time_minutes")
+    private Integer prepTime;
+    
+    @Column(name = "total_time_minutes")
+    private Integer totalTime;
+    
     @Column(name = "needs_review")
     private Boolean needsReview;
     
@@ -153,6 +159,21 @@ public class Recipe implements Persistable {
         this.name = name;
     }
 
+    public Integer getTotalTime() {
+        return this.totalTime;
+    }
+    public void setTotalTime(Integer totalTime)
+    {
+        this.totalTime = totalTime;
+    }
+    public Integer getPreTime() {
+        return this.prepTime;
+    }
+    public void setPrepTime(Integer prepTime)
+    {
+        this.prepTime = prepTime;
+    }
+    
     public int getNumberOfServings() {
         return numberOfServings;
     }
@@ -204,7 +225,7 @@ public class Recipe implements Persistable {
         return b.toString();
     }
 
-    public String toLongString()
+    public String prettyPrint()
     {
         StringBuilder b = new StringBuilder();
         b.append("\nRecipe: ");
@@ -220,7 +241,7 @@ public class Recipe implements Persistable {
         b.append("\nServes: ").append(numberOfServings);
         for(RecipeIngredient ingredient:ingredients)
         {
-            b.append("\n * ").append(ingredient);
+            b.append("\n * ").append(ingredient.prettyPrint());
         }
         int i = 1;
         for(RecipeInstruction instruction:instructions)
@@ -253,35 +274,6 @@ public class Recipe implements Persistable {
     public static Recipe fromXml()
     {
         throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public static Recipe parseRecipeString(String recipeString) {
-        Recipe recipe = new Recipe();
-
-        logger.debug("Parsing Recipe String: \n" + recipeString);
-        // Assume first line is title
-        String delimiter = "\\r?\\n";
-        String[] split = recipeString.split(delimiter);
-
-        logger.debug("Split String: ");
-        for (int i = 0; i < split.length; i++) {
-            logger.debug("[" + i + "]: " + split[i]);
-        }
-
-        recipe.setName(split[0]);
-
-        int index = 1;
-
-        for (int i = 1; i < split.length; i++) {
-
-                RecipeIngredient parsedIng = RecipeIngredient.parseIngredientString(split[i]);
-                logger.debug("[" + i + "]: " + parsedIng);
-                recipe.addIngredient(parsedIng);
-
-        }
-
-
-        return recipe;
     }
 
     @Override

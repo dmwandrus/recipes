@@ -13,70 +13,120 @@ import org.apache.karaf.tooling.exam.options.LogLevelOption;
 import static org.ops4j.pax.exam.CoreOptions.*;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.wiring.BundleRevision;
 
 /**
  *
  * @author dandrus
  */
-public class TestUtils
-{
-    
+public class TestUtils {
+
     static final Logger logger = Logger.getLogger(TestUtils.class.getName());
-    
     public static final String GROUP_ID = "com.da.karaf";
     public static final String CUSTOM_VERSION = "1.0-SNAPSHOT";
     public static final String KARAF_VERSION = "2.3.0";
     public static final String RECIPE_TIER = "recipes-tier";
 
-    
-    public static void sleep(int seconds, String message)
-    {
-        try
-        {
+    public static void sleep(int seconds, String message) {
+        try {
             logger.info("========================================");
-            logger.info("Sleeping:  "+message);
-            Thread.sleep(1000*seconds);
-            logger.info("Waking: "+message);
-        } catch (InterruptedException ex)
-        {
+            logger.info("Sleeping:  " + message);
+            Thread.sleep(1000 * seconds);
+            logger.info("Waking: " + message);
+        } catch (InterruptedException ex) {
             logger.log(Level.SEVERE, "couldn't sleep", ex);
         }
     }
-    
-    private static Option[] createKarafDistConfig(String artifactId)
-    {
+
+    private static Option[] createKarafDistConfig(String artifactId) {
         return new Option[]{
             karafDistributionConfiguration()
-                .frameworkUrl(maven()
-                    .groupId(GROUP_ID)
-                    .artifactId(artifactId)
-                    .type("tar.gz")
-                    .version(CUSTOM_VERSION))
-                .karafVersion(KARAF_VERSION)
-                .name(artifactId)
-                .unpackDirectory(new File("target/paxexam/unpack/"+artifactId+"/")),
+            .frameworkUrl(maven()
+            .groupId(GROUP_ID)
+            .artifactId(artifactId)
+            .type("tar.gz")
+            .version(CUSTOM_VERSION))
+            .karafVersion(KARAF_VERSION)
+            .name(artifactId)
+            .unpackDirectory(new File("target/paxexam/unpack/" + artifactId + "/")),
             keepRuntimeFolder(),
             logLevel(LogLevelOption.LogLevel.INFO),
-//            bundle("wrap:mvn:com.da.organizer.recipes/recipes-common/1.0-SNAPSHOT/jar/tests"),
-            debugConfiguration("5555", true),
+            //            debugConfiguration("5555", true),
             cleanCaches(true)
         };
-                    
+
     }
-    
-    public static Option[] getRecipesKaraf()
-    {
+
+//    @Configuration
+//    public static Option[] configure() throws Exception {
+//        return new Option[]{
+//            karafDistributionConfiguration()
+//                .frameworkUrl(
+//                    maven().groupId("org.apache.karaf").artifactId("apache-karaf").type("zip")
+//                        .versionAsInProject()).useDeployFolder(false).karafVersion("3.0.0")
+//                        .unpackDirectory(new File("target/paxexam/unpack/")),
+//                    logLevel(LogLevel.WARN),
+//                features(
+//                    maven().groupId("org.apache.karaf.features").artifactId("standard").type("xml")
+//            .classifier("features").versionAsInProject(), "http-whiteboard"),
+//            features(
+//            maven().groupId("org.apache.karaf.features").artifactId("enterprise").type("xml")
+//            .classifier("features").versionAsInProject(), "transaction", "jpa", "jndi"),
+//            features(
+//            maven().groupId("org.apache.activemq").artifactId("activemq-karaf").type("xml")
+//            .classifier("features").versionAsInProject(), "activemq-blueprint", "activemq-camel"),
+//            features(
+//            maven().groupId("org.apache.cxf.karaf").artifactId("apache-cxf").type("xml")
+//            .classifier("features").versionAsInProject(), "cxf-jaxws"),
+//            features(
+//            maven().groupId("org.apache.camel.karaf").artifactId("apache-camel").type("xml")
+//            .classifier("features").versionAsInProject(), "camel-blueprint", "camel-jms",
+//            "camel-jpa", "camel-mvel", "camel-jdbc", "camel-cxf", "camel-test"),
+//            KarafDistributionOption.editConfigurationFilePut("etc/org.ops4j.pax.url.mvn.cfg",
+//            "org.ops4j.pax.url.mvn.proxySupport", "true"),
+//            keepRuntimeFolder(),
+//            mavenBundle().groupId("com.h2database").artifactId("h2").version("1.3.167"),
+//            mavenBundle().groupId("de.nierbeck.camel.exam.demo").artifactId("entities").versionAsInProject(),
+//            mavenBundle().groupId("org.ops4j.pax.tipi").artifactId("org.ops4j.pax.tipi.hamcrest.core")
+//            .versionAsInProject(),
+//            streamBundle(
+//            bundle().add("OSGI-INF/blueprint/datasource.xml",
+//            new File("src/sample/resources/datasource.xml").toURL())
+//            .set(Constants.BUNDLE_SYMBOLICNAME, "de.nierbeck.camel.exam.demo.datasource")
+//            .set(Constants.DYNAMICIMPORT_PACKAGE, "*").build()).start(),
+//            streamBundle(
+//            bundle().add("OSGI-INF/blueprint/mqbroker.xml",
+//            new File("src/sample/resources/mqbroker-test.xml").toURL())
+//            .set(Constants.BUNDLE_SYMBOLICNAME, "de.nierbeck.camel.exam.demo.broker")
+//            .set(Constants.DYNAMICIMPORT_PACKAGE, "*").build()).start(),
+//            streamBundle(
+//            bundle().add(JmsDestinations.class)
+//            .add(WebServiceOrder.class)
+//            .add(CamelMessageBean.class)
+//            .add(RouteID.class)
+//            .add(OrderWebServiceRoute.class)
+//            .add(OutMessageProcessor.class)
+//            .add(MessageLogConverter.class)
+//            .add("OSGI-INF/blueprint/camel-main-context.xml",
+//            new File("src/main/resources/OSGI-INF/blueprint/camel-context.xml")
+//            .toURL())
+//            .add("OSGI-INF/blueprint/jms-context.xml",
+//            new File("src/main/resources/OSGI-INF/blueprint/jms-config.xml").toURL())
+//            .add("wsdl/WebServiceOrder.wsdl",
+//            new File("target/generated/wsdl/WebServiceOrder.wsdl").toURL())
+//            .set(Constants.BUNDLE_SYMBOLICNAME, "de.nierbeck.camel.exam.demo.route-control")
+//            .set(Constants.DYNAMICIMPORT_PACKAGE, "*")
+//            .set(Constants.EXPORT_PACKAGE, "wsdl, de.nierbeck.camel.exam.demo.control").build())
+//            .start()};
+//    }
+
+    public static Option[] getRecipesKaraf() {
         return createKarafDistConfig(RECIPE_TIER);
     }
-    
-    
-    public static boolean bundlesStarted(BundleContext bc)
-    {
+
+    public static boolean bundlesStarted(BundleContext bc) {
         boolean bundlesStarted = true;
         Bundle[] bundles = bc.getBundles();
-        for (Bundle bundle : bundles)
-        {
+        for (Bundle bundle : bundles) {
             StringBuilder b = new StringBuilder();
 
             String bundleState = getBundleState(bundle.getState());
@@ -84,11 +134,9 @@ public class TestUtils
             b.append("[").append(bundleState).append("]");
             b.append("\n\tName -> ").append(bundle.getSymbolicName());
             b.append("\n\tRegistered Services: ").append(bundle.getRegisteredServices());
-            
-            if( !bundleState.equals("ACTIVE"))
-            {
-                if(bundleState.equals("RESOLVED"))
-                {
+
+            if (!bundleState.equals("ACTIVE")) {
+                if (bundleState.equals("RESOLVED")) {
                     // check to see if it is a fragment....
 //                    if( !((bundle.adapt(BundleRevision.class).getTypes() & BundleRevision.TYPE_FRAGMENT) != 0) )
 //                    {
@@ -96,8 +144,7 @@ public class TestUtils
 //                        b.append("\n\tBUNDLE IS NOT STARTED PROPERLY");
 //                        bundlesStarted = false;
 //                    }
-                }
-                else{
+                } else {
                     b.append("\n\tBUNDLE IS NOT STARTED PROPERLY");
                     bundlesStarted = false;
                 }
@@ -106,12 +153,10 @@ public class TestUtils
         }
         return bundlesStarted;
     }
-    
-    public static String getBundleState(int state)
-    {
 
-        switch (state)
-        {
+    public static String getBundleState(int state) {
+
+        switch (state) {
             case Bundle.ACTIVE:
                 return "ACTIVE";
             case Bundle.INSTALLED:

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.da.organizer.recipes.common;
+package com.da.organizer.recipes.common.unit;
 
 
 import com.da.organizer.recipes.common.exception.UnitNotFoundException;
@@ -20,16 +20,29 @@ public enum IngredientUnit {
     tablespoon("tablespoon", new String[]{"T", "Tbsp", "tbsp", "Tbs", "tbs"}),
     whole("whole", new String[]{}),
     half("half", new String[]{}),
-    ounce("ounce", new String[]{"oz"}),
-    pound("pound", new String[]{"lb"}),
+    ounce("ounce", new String[]{"oz", "ounces"}),
+    pound("pound", new String[]{"lb", "pounds"}),
     slice("slice", new String[]{"slices"}),
     pinch("pinch", new String[]{}),
-    pkg("package", new String[]{"pkg"}),
+    pkg("package", new String[]{"pkg", "packages"}),
     rack("rack", new String[]{}),
-    quart("quart", new String[]{"qt"}),
-    pint("pint", new String[]{"pt"}),
-    gallon("gallon", new String[]{"gal"})
-
+    quart("quart", new String[]{"qt", "quarts"}),
+    pint("pint", new String[]{"pt", "pints"}),
+    gallon("gallon", new String[]{"gal", "gallons"}),
+    
+    stick("stick", new String[]{"stick", "sticks"}),
+    clove("clove", new String[]{"cloves"}),
+    sprig("sprig", new String[]{}),
+    inch("inch", new String[]{"in", "inches"}),
+    head("head", new String[]{"heads"}),
+    leaves("leaves", new String[]{"leaf"}),
+    can("can", new String[]{"cans"}), 
+    recipe("recipe", new String[]{}),
+    
+    
+    bunch("bunch", new String[]{"bunches"})
+    // fluid ounces?
+    
             ;
 
     String fullText;
@@ -51,13 +64,15 @@ public enum IngredientUnit {
         return altTexts;
     }
 
+    
     public static IngredientUnit getUnit(String text) throws UnitNotFoundException
     {
+        text = text.trim();
         IngredientUnit[] values = IngredientUnit.values();
         for(int i=0; i<values.length; i++)
         {
             IngredientUnit unit = values[i];
-            if(unit.getFullText().equalsIgnoreCase(text))
+            if(unit.getFullText().equals(text))
             {
                 return unit;
             }

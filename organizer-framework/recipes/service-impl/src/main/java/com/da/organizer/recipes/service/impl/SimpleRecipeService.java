@@ -32,22 +32,21 @@ public class SimpleRecipeService implements RecipeService {
 
     @Override
     public Long addRecipe(Recipe recipe) {
-        // first, find each existing ingredient, or persist the ingredients
-        LOG.info("PRE SAVE: "+recipe.toLongString());
-        for (RecipeIngredient ri : recipe.getIngredients()) {
-            Ingredient i = retrieveIngredientByName(ri.getIngredientName());
-            if (i != null) {
-                // TODO - merge old & new ingredients....how to update...
-                ri.setIngredient(i);
-            } else {
-                em.persist(ri.getIngredient());
+        LOG.info("SAVE: "+recipe.prettyPrint());
+//        for (RecipeIngredient ri : recipe.getIngredients()) {
+//            Ingredient i = retrieveIngredientByName(ri.getIngredientName());
+//            if (i != null) {
+//                // TODO - merge old & new ingredients....how to update...
 //                ri.setIngredient(i);
-//                em.flush();
-            }
-            LOG.info("RECIPE INGREDIENT: "+ri);
-            LOG.info("INGREDIENT: "+i);
-        }
-        LOG.info("POST SAVE: "+recipe.toLongString());
+//            } else {
+//                em.persist(ri.getIngredient());
+////                ri.setIngredient(i);
+////                em.flush();
+//            }
+//            LOG.info("RECIPE INGREDIENT: "+ri);
+//            LOG.info("INGREDIENT: "+i);
+//        }
+//        LOG.info("POST SAVE: "+recipe.toLongString());
         em.persist(recipe);
         
 

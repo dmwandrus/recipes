@@ -3,7 +3,7 @@
     <persistence-unit name="test_recipe_pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
     
-                <class>com.da.organizer.recipes.common.Recipe</class>
+        <class>com.da.organizer.recipes.common.Recipe</class>
         <class>com.da.organizer.recipes.common.RecipeIngredient</class>
         <class>com.da.organizer.recipes.common.Ingredient</class>
         <class>com.da.organizer.recipes.common.IngredientAmount</class>

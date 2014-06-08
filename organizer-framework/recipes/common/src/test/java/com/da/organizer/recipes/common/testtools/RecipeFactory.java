@@ -70,9 +70,9 @@ public class RecipeFactory {
     public static RecipeIngredient buildBreadRi() throws IngredientParseException
     {
         RecipeIngredient bread = new RecipeIngredient();
-        bread.getAmount().setAmountFromString("2");
-        bread.getAmount().setUnit(IngredientUnit.slice);
-        bread.setIngredient(buildBread());
+        bread.getRecipeAmount().setAmountFromString("2");
+        bread.getRecipeAmount().setUnit(IngredientUnit.slice);
+        bread.setIngredientName("White Bread");
         bread.setPrePreparation(" ");
         return bread;
     }
@@ -80,9 +80,9 @@ public class RecipeFactory {
     public static RecipeIngredient buildJamRi() throws IngredientParseException
     {
         RecipeIngredient jam = new RecipeIngredient();
-        jam.getAmount().setAmountFromString("2");
-        jam.getAmount().setUnit(IngredientUnit.tablespoon);
-        jam.setIngredient(buildJelly());
+        jam.getRecipeAmount().setAmountFromString("2");
+        jam.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
+        jam.setIngredientName("Thimbleberry Jam");
         jam.setPrePreparation(" ");
         return jam;
     }
@@ -90,9 +90,9 @@ public class RecipeFactory {
     public static RecipeIngredient buildHoneyRi() throws IngredientParseException
     {
         RecipeIngredient jam = new RecipeIngredient();
-        jam.getAmount().setAmountFromString("2");
-        jam.getAmount().setUnit(IngredientUnit.tablespoon);
-        jam.setIngredient(buildHoney());
+        jam.getRecipeAmount().setAmountFromString("2");
+        jam.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
+        jam.setIngredientName("honey");
         jam.setPrePreparation(" ");
         return jam;
     }
@@ -100,9 +100,9 @@ public class RecipeFactory {
     public static RecipeIngredient buildPBRi() throws IngredientParseException
     {
         RecipeIngredient pb = new RecipeIngredient();
-        pb.getAmount().setAmountFromString("2.0");
-        pb.getAmount().setUnit(IngredientUnit.tablespoon);
-        pb.setIngredient(buildPeanutButter());
+        pb.getRecipeAmount().setAmountFromString("2.0");
+        pb.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
+        pb.setIngredientName("Creamy Peanut Butter");
         pb.setPrePreparation(" ");
         return pb;
     }

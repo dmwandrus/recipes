@@ -290,7 +290,7 @@ public class RecipeParser {
             amt.setUnit(IngredientUnit.whole);
         }
         
-        ri.setAmount(amt);
+        ri.setRecipeAmount(amt);
         ri.setIngredientName(restOfString.trim());
 
         StringBuilder b = new StringBuilder();

@@ -62,9 +62,6 @@ public class Recipe implements Persistable {
     @Column(name = "num_servings")
     private int numberOfServings;
     
-//    @Column(name = "submitter_id")
-//    private Long submitterId;
-//    private User submitter;
     @Column(name = "submitter_name")
     private String submitterName;
     
@@ -85,9 +82,7 @@ public class Recipe implements Persistable {
     
      @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
     private List<RecipeIngredient> ingredients = new ArrayList<>();
-    // TODO
-//    private List<Recipe> subRecipe = new ArrayList<>();
-
+    
     public Recipe() {
     }
 
@@ -189,24 +184,6 @@ public class Recipe implements Persistable {
     public void setOrigination(String origination) {
         this.origination = origination;
     }
-//
-//    public User getSubmitter() {
-//        return submitter;
-//    }
-//
-//    public void setSubmitter(User submitter) {
-//        this.submitter = submitter;
-//    }
-
-//    public Long getSubmitterId() {
-//        return submitterId;
-//    }
-//
-//    public void setSubmitterId(Long submitterId) {
-//        this.submitterId = submitterId;
-//    }
-    
-    
 
     @Override
     public String toString() {

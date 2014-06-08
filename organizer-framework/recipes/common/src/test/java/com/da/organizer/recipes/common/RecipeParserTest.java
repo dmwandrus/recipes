@@ -112,11 +112,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "tomatoes");
         assertEquals("Ingredient should have pre-prep of 'drained'", ingredient.getPrePreparation(), "drained");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)1));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.can);
-        assertEquals(ingredient.getAmount().getPackageSize(), ((Double)28.6));
-        assertEquals(ingredient.getAmount().getPackageUnit(), IngredientUnit.ounce);
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.can);
+        assertEquals(ingredient.getRecipeAmount().getPackageSize(), ((Double)28.6));
+        assertEquals(ingredient.getRecipeAmount().getPackageUnit(), IngredientUnit.ounce);
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -130,11 +130,11 @@ public class RecipeParserTest {
             fail("Ingredient should have no pre prep or additional notes.");
         }
         
-        assertNull(ingredient.getAmount().getAmount());
-        assertNull(ingredient.getAmount().getUnit());
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertNull(ingredient.getRecipeAmount().getAmount());
+        assertNull(ingredient.getRecipeAmount().getUnit());
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
             
     }
     
@@ -145,11 +145,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "salt");
         assertEquals("Ingredient should have pre-prep of 'to taste'", ingredient.getPrePreparation(), "to taste");
-        assertNull(ingredient.getAmount().getAmount());
-        assertNull(ingredient.getAmount().getUnit());
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertNull(ingredient.getRecipeAmount().getAmount());
+        assertNull(ingredient.getRecipeAmount().getUnit());
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
             
     }
     
@@ -160,11 +160,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "eggs");
         assertEquals("Ingredient should have pre-prep of 'boiled'", ingredient.getPrePreparation(), "boiled");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)12));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.whole);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)12));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
             
     }
     
@@ -176,11 +176,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "onion");
         assertEquals("Ingredient should have pre-prep of 'chopped coarsely'", ingredient.getPrePreparation(), "chopped coarsely");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)1));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.whole);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertEquals(ingredient.getAmount().getUnitSize(), UnitSize.large);
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertEquals(ingredient.getRecipeAmount().getUnitSize(), UnitSize.large);
     }
     
     
@@ -191,11 +191,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "cream cheese");
         assertEquals("Ingredient should have pre-prep of 'softened'", ingredient.getPrePreparation(), "softened");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)2));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.pkg);
-        assertEquals(ingredient.getAmount().getPackageSize(), ((Double)8.0));
-        assertEquals(ingredient.getAmount().getPackageUnit(), IngredientUnit.ounce);
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.pkg);
+        assertEquals(ingredient.getRecipeAmount().getPackageSize(), ((Double)8.0));
+        assertEquals(ingredient.getRecipeAmount().getPackageUnit(), IngredientUnit.ounce);
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -205,11 +205,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "tart apples");
         assertEquals("Ingredient should have pre-prep of 'peeled, cored & chopped'", ingredient.getPrePreparation(), "peeled, cored & chopped");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)5));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.whole);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertEquals(ingredient.getAmount().getUnitSize(), UnitSize.small);
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)5));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertEquals(ingredient.getRecipeAmount().getUnitSize(), UnitSize.small);
     }
     
     @Test
@@ -222,12 +222,31 @@ public class RecipeParserTest {
         {
             fail("Ingredient should have no pre prep or additional notes.");
         }
-        assertEquals(ingredient.getAmount().getAmount().getNumerator(), ((Integer)1));
-        assertEquals(ingredient.getAmount().getAmount().getDenominator(), ((Integer)2));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.cup);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getNumerator(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getDenominator(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
+    }
+    
+    @Test
+    public void testIngredient_flour()
+    {
+        String ingString = "2 1/2 c flour";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "flour");
+        if(ingredient.getPrePreparation() != null && !ingredient.getPrePreparation().isEmpty())
+        {
+            fail("Ingredient should have no pre prep or additional notes.");
+        }
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getNumerator(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getDenominator(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -240,11 +259,11 @@ public class RecipeParserTest {
         {
             fail("Ingredient should have no pre prep or additional notes.");
         }
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)1));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.bunch);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertEquals(ingredient.getAmount().getUnitSize(), UnitSize.small);
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.bunch);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertEquals(ingredient.getRecipeAmount().getUnitSize(), UnitSize.small);
     }
     
     @Test
@@ -255,11 +274,11 @@ public class RecipeParserTest {
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "boneless skinless chicken thighs");
         
         assertEquals("Ingredient should have pre-prep of '(about 2 1/2 pounds total)'", ingredient.getPrePreparation(), "(about 2 1/2 pounds total)");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)12));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.whole);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)12));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -272,11 +291,11 @@ public class RecipeParserTest {
         {
             fail("Ingredient should have no pre prep or additional notes.");
         }
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)3));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.cup);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)3));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -286,11 +305,11 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "whole-wheat pitas");
         assertEquals("Ingredient should have pre-prep of 'toasted'", ingredient.getPrePreparation(), "toasted");
-        assertEquals(ingredient.getAmount().getAmount().getWhole(), ((Integer)4));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.whole);
-        assertEquals(ingredient.getAmount().getPackageSize(), ((Double)8.0));
-        assertEquals(ingredient.getAmount().getPackageUnit(), IngredientUnit.inch);
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)4));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        assertEquals(ingredient.getRecipeAmount().getPackageSize(), ((Double)8.0));
+        assertEquals(ingredient.getRecipeAmount().getPackageUnit(), IngredientUnit.inch);
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -300,12 +319,12 @@ public class RecipeParserTest {
         RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
         assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "fresh flat-leaf parsley");
         assertEquals("Ingredient should have pre-prep of 'finely chopped'", ingredient.getPrePreparation(), "finely chopped");
-        assertEquals(ingredient.getAmount().getAmount().getNumerator(), ((Integer)1));
-        assertEquals(ingredient.getAmount().getAmount().getDenominator(), ((Integer)4));
-        assertEquals(ingredient.getAmount().getUnit(), IngredientUnit.cup);
-        assertNull(ingredient.getAmount().getPackageSize());
-        assertNull(ingredient.getAmount().getPackageUnit());
-        assertNull(ingredient.getAmount().getUnitSize());
+        assertEquals(ingredient.getRecipeAmount().getAmount().getNumerator(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getDenominator(), ((Integer)4));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     

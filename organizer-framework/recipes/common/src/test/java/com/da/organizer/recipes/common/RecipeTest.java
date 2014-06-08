@@ -24,6 +24,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * Basically, I need to re-write this entire test. I went into it assuming that
+ * every 'RecipeIngredient' object would be immediately linked to an actual
+ * 'Ingredient' object. However, I haven't worked out how to differentiate
+ * between apples, granny smith apples, tart apples, sweet apples, etc. I would
+ * like those to all link to 'apple' and then maybe their specific subtype.
+ * Therefore, I have decided to simply persist the recipe's ingredient string
+ * and then, later, learn to do some data post-processing and after I add in
+ * ingredient data, link up the recipes with that ingredient string. I changed
+ * my most basic assumption on how this how thing would work.
  *
  * @author dandrus
  */
@@ -52,14 +61,10 @@ public class RecipeTest {
 
     @Before
     public void setUp() {
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
     }
 
     @After
     public void tearDown() {
-//        EntityTransaction tx = em.getTransaction();
-//        tx.rollback();
     }
 
     public void startTX() {
@@ -84,173 +89,73 @@ public class RecipeTest {
     @Test
     public void saveRecipe() {
 
-        try{
-        startTX();
-        Recipe pbRecipe = RecipeFactory.buildPBJ();
-        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.prettyPrint());
-        Set<Long> ingredientIds = new HashSet<Long>();
-        for (RecipeIngredient ri : pbRecipe.getIngredients()) {
-
-            em.persist(ri.getIngredient());
-            ingredientIds.add(ri.getIngredient().getId());
-        }
-        commitTX();
-
-        LOG.info("Ingredients are saved....");
-        LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.prettyPrint());
-
-        startTX();
-
-        em.persist(pbRecipe);
-        commitTX();
-
-        startTX();
-        LOG.info("saveRecipe - POST-PERSIST: " + pbRecipe.prettyPrint());
-        Recipe found = em.find(Recipe.class, pbRecipe.getId());
-        Set<Ingredient> ingredients = new HashSet<Ingredient>();
-
-        LOG.info("saveRecipe - FOUND: " + found.prettyPrint());
-        em.remove(pbRecipe);
-        for (RecipeIngredient ing : pbRecipe.getIngredients()) {
-            em.remove(ing.getIngredient());
-        }
-        commitTX();
-
-        startTX();
         try {
-            Recipe foundAgain = em.find(Recipe.class, pbRecipe.getId());
-            assertNull(foundAgain);
-        } catch (PersistenceException ex) {
-            //expecting entity not found exception.  
-        }
+            startTX();
+            Recipe pbRecipe = RecipeFactory.buildPBJ();
+            LOG.info("saveRecipe - PRE-PERSIST: " + pbRecipe.prettyPrint());
+            em.persist(pbRecipe);
+            LOG.info("Orig ID: "+System.identityHashCode(pbRecipe));
+            commitTX();
 
-        TypedQuery<Ingredient> findAll = em.createNamedQuery("Ingredient.findAll", Ingredient.class);
-        List<Ingredient> allIngredients = findAll.getResultList();
-        LOG.info("Ingredients in db still: " + allIngredients);
+            // clear out the cache so I'm getting a different object to compare
+            // otherwise, I'll just get the exact same object reference that
+            // I just persisted, and there's really no point in comparing an
+            // object to itself....
+            em.clear();
+            
+            startTX();
+            
+            Recipe found = em.find(Recipe.class, pbRecipe.getId());
+            LOG.info("Found ID: "+System.identityHashCode(found));
+            LOG.info("saveRecipe - RETRIEVED: " + found.prettyPrint());
+            
+            assertEquals(pbRecipe.getName(), found.getName());
+            assertEquals(pbRecipe.getDescription(), found.getDescription());
+            assertEquals(pbRecipe.getOrigination(), found.getOrigination());
+            
+            assertEquals(pbRecipe.getIngredients().size(), found.getIngredients().size());
+            for(RecipeIngredient origIng:pbRecipe.getIngredients())
+            {
+                boolean isFound = false;
+                for(RecipeIngredient foundIng:found.getIngredients())
+                {
+                    if(origIng.getIngredientName().equals(foundIng.getIngredientName()))
+                    {
+                        assertEquals(origIng.getPrePreparation(), foundIng.getPrePreparation());
+                        assertEquals(origIng.getRecipeAmountAsString(), foundIng.getRecipeAmountAsString());
+                        isFound = true;
+                    }
+                }
+                assertTrue(isFound);
+            }
+            
+            assertEquals(pbRecipe.getInstructions().size(), found.getInstructions().size());
+            
+            for(int i=0; i<pbRecipe.getInstructions().size(); i++)
+            {
+                RecipeInstruction origInstr = pbRecipe.getInstructions().get(i);
+                RecipeInstruction foundInstr = found.getInstructions().get(i);
+                assertEquals(origInstr.getInstructionText(), foundInstr.getInstructionText());
+            }
+                
+            
+            em.remove(found);
+            commitTX();
 
-        commitTX();
-        }catch(Throwable t)
-        {
+            startTX();
+            try {
+                Recipe foundAgain = em.find(Recipe.class, pbRecipe.getId());
+                assertNull(foundAgain);
+            } catch (PersistenceException ex) {
+                //expecting entity not found exception.  
+            }
+            commitTX();
+
+        } catch (Throwable t) {
             LOG.info("THREW UP: ", t);
             fail("unable to persist");
         }
 
     }
 
-//    @Test
-    public void saveRecipeWithoutSavingIngredients() throws IngredientParseException {
-        Recipe pbjRecipe = RecipeFactory.buildPBJ();
-        LOG.info("saveRecipe2 - PRE-PERSIST: " + pbjRecipe.prettyPrint());
-        em.persist(pbjRecipe);
-        LOG.info("saveRecipe2 - POST-PERSIST: " + pbjRecipe.prettyPrint());
-        Recipe found = em.find(Recipe.class, pbjRecipe.getId());
-        LOG.info("saveRecipe2 - FOUND: " + found.prettyPrint());
-        em.remove(pbjRecipe);
-
-        // Yes, Ingredients must be saved first.  
-        // And this is really how I want it, because I want to ensure
-        // a bit of validation on the Ingredient itself before persisting
-        // willy nilly.  
-    }
-
-    @Test
-    public void saveRecipeWithPreExistingIngredients() throws IngredientParseException {
-
-        startTX();
-
-        Recipe pbjRecipe = RecipeFactory.buildPBJ();
-
-        // first save pbj wholly
-        for (RecipeIngredient ri : pbjRecipe.getIngredients()) {
-            em.persist(ri.getIngredient());
-        }
-        em.persist(pbjRecipe);
-        commitTX();
-
-        startTX();
-
-        Recipe pbhoneyRecipe = RecipeFactory.buildPBAndHoney();
-        // then save pbhoney...
-        for (RecipeIngredient ri : pbhoneyRecipe.getIngredients()) {
-            try {
-                TypedQuery<Ingredient> findByName = em.createNamedQuery("Ingredient.findByName", Ingredient.class);
-                findByName.setParameter("name", ri.getIngredientName());
-                LOG.info("Query for: " + ri.getIngredientName());
-
-                Ingredient result = findByName.getSingleResult();
-                LOG.info("Result: " + result);
-                if (ri.getIngredientName().equals("Peanut Butter")) {
-                    assertNotNull(result);
-                }
-                if (ri.getIngredientName().equals("Bread")) {
-                    assertNotNull(result);
-                }
-                if (ri.getIngredientName().equals("Honey")) {
-                    assertNull(result);
-                }
-                if (result != null) {
-                    LOG.info("found ingredient " + ri.getIngredientName());
-//                if(!result.equals(ri.getIngredient()))
-//                {
-//                    // would need to update the ingredient...
-//                    result.setNotes(result.getNotes().concat(" | ").concat(ri.getIngredient().getNotes()));
-//                    result.getCategories().addAll(ri.getIngredient().getCategories());
-//                    em.persist(ri.getIngredient());
-//                }
-                    ri.setIngredient(result);
-                } else {
-                    LOG.info("never found ingredient...." + ri.getIngredientName());
-                    em.persist(ri.getIngredient());
-                }
-
-            } catch (PersistenceException ex) {
-                LOG.error("error, ingredient not found? ", ex);
-                if (ri.getIngredientName().equals("Peanut Butter")) {
-                    fail("should have found peanut butter");
-                }
-                if (ri.getIngredientName().equals("Bread")) {
-                    fail("should have found bread");
-                }
-                LOG.info("never found ingredient...." + ri.getIngredientName());
-                em.persist(ri.getIngredient());
-
-            }
-
-        }
-        commitTX();
-
-        startTX();
-
-        LOG.info("Pre-persist honey: " + pbhoneyRecipe.prettyPrint());
-
-        em.persist(pbhoneyRecipe);
-
-        LOG.info("PBJ (end):  " + pbjRecipe.prettyPrint());
-        LOG.info("PBH (end):  " + pbhoneyRecipe.prettyPrint());
-
-
-        commitTX();
-
-        startTX();
-
-        em.remove(pbhoneyRecipe);
-        em.remove(pbjRecipe);
-
-        Set<Ingredient> ingredients = new HashSet<Ingredient>();
-
-        for (RecipeIngredient ri : pbjRecipe.getIngredients()) {
-            ingredients.add(ri.getIngredient());
-        }
-        for (RecipeIngredient ri : pbhoneyRecipe.getIngredients()) {
-            ingredients.add(ri.getIngredient());
-        }
-
-        for (Ingredient i : ingredients) {
-            em.remove(i);
-
-        }
-        commitTX();
-
-
-    }
 }

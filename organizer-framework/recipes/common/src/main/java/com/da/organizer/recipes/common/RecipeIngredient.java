@@ -52,53 +52,37 @@ public class RecipeIngredient implements Serializable
     private String prePreparation;
     
     // placeholder for ingredient information, if it exists
-    @ManyToOne
-    private Ingredient ingredient;
+//    @ManyToOne
+//    private Ingredient ingredient;
+    
+    @Column(name = "ingredient_name")
+    private String ingredientName;
     
     @OneToOne
-    private IngredientAmount amount = new IngredientAmount();
+    private IngredientAmount recipeAmount = new IngredientAmount();
     
-    public String getAmountAsString() {
-        return amount.toString();
+    public String getRecipeAmountAsString() {
+        return recipeAmount.toString();
     }
     
-    public void setAmount(IngredientAmount ia)
+    public void setRecipeAmount(IngredientAmount ia)
     {
-        this.amount = ia;
+        this.recipeAmount = ia;
     }
     
-    public IngredientAmount getAmount()
+    public IngredientAmount getRecipeAmount()
     {
-        return this.amount;
+        return this.recipeAmount;
     }
     
-    
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
     public String getIngredientName()
     {
-        if(ingredient != null)
-        {
-            return ingredient.getName();
-        }
-        else{
-            return null;
-        }
+        return ingredientName;
     }
     
     public void setIngredientName(String name)
     {
-        if(ingredient == null)
-        {
-            ingredient = new Ingredient();
-        }
-        ingredient.setName(name);
+        this.ingredientName = name;
     }
 
     public String getPrePreparation()
@@ -148,14 +132,7 @@ public class RecipeIngredient implements Serializable
     {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        sb.append(this.amount).append("] [");
-        if(ingredient != null)
-        {
-            sb.append(this.ingredient.getName());
-            sb.append(" (id = ");
-            sb.append(this.ingredient.getId());
-            sb.append(")");
-        }
+        sb.append(this.recipeAmount).append("] [");
         sb.append(", [");
         sb.append(this.prePreparation);
         sb.append("]");
@@ -165,16 +142,9 @@ public class RecipeIngredient implements Serializable
     public String prettyPrint()
     {
         StringBuilder sb = new StringBuilder();
-        if(this.amount != null )
+        if(this.recipeAmount != null )
         {
-            sb.append(this.amount.prettyPrint()).append(" ");
-        }
-        // ummm, ingredient is the only thing that can't be null....hmmm
-        if(ingredient != null)
-        {
-            sb.append("\ningredient: '");
-            sb.append(this.ingredient.getName());
-            sb.append("' ");
+            sb.append(this.recipeAmount.prettyPrint()).append(" ");
         }
         if(this.prePreparation != null)
         {

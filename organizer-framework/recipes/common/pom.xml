@@ -82,7 +82,7 @@
                     <instructions>
                        
                         <Meta-Persistence>META-INF/persistence.xml</Meta-Persistence>
-                        <Export-Package>com.da.organizer.recipes.common,com.da.organizer.recipes.common.exception</Export-Package>
+                        <Export-Package>com.da.organizer.recipes.common,com.da.organizer.recipes.common.exception,com.da.organizer.recipes.common.parse,com.da.organizer.recipes.common.unit</Export-Package>
                         <Private-Package>com.da.organizer.recipes.common.*</Private-Package>
                     </instructions>
                 </configuration>

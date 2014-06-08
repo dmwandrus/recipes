@@ -98,14 +98,7 @@ public class RecipeITest {
             assertTrue(recipeService.removeRecipe(recipeId));
             retrievedRecipe = recipeService.retrieveRecipe(recipeId);
             assertNull(retrievedRecipe);
-            for(RecipeIngredient ri:pbj.getIngredients())
-            {
-                Ingredient retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
-                assertNotNull(retrievedIng);
-                recipeService.removeIngredient(retrievedIng.getId());
-                retrievedIng = recipeService.retrieveIngredientByName(ri.getIngredientName());
-                assertNull(retrievedIng);
-            }
+            
         } catch (IngredientParseException ex) {
             Logger.getLogger(RecipeITest.class.getName()).log(Level.SEVERE, null, ex);
             fail("Unable to build recipe");

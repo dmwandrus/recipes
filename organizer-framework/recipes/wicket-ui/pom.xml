@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.da.organizer.recipes</groupId>
+        <artifactId>recipes-management</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>recipes-wicket-ui</artifactId>
+    <packaging>bundle</packaging>
+
+    <name>recipes :: wicket ui</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.da.organizer.recipes</groupId>
+            <artifactId>recipes-common</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.da.organizer.recipes</groupId>
+            <artifactId>recipes-service-api</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
+        <!-- Pax Wicket Core -->
+<dependency>
+  <groupId>org.ops4j.pax.wicket</groupId>
+  <artifactId>org.ops4j.pax.wicket.service</artifactId>
+</dependency>
+<!-- Pax Wicket Test Utilities -->
+<dependency>
+  <groupId>org.ops4j.pax.wicket</groupId>
+  <artifactId>org.ops4j.pax.wicket.test</artifactId>
+</dependency>
+        
+    </dependencies>
+    
+    <properties>
+           <cglib.range>[2,3)</cglib.range>
+        
+    </properties>
+    
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Import-Package>
+              org.apache.wicket,
+              org.apache.wicket.util,
+              org.apache.wicket.event,
+              org.apache.wicket.page,
+              org.apache.wicket.request.resource,
+              org.apache.wicket.request.mapper,
+              org.apache.wicket.request.cycle,
+              org.apache.wicket.markup.html,
+              org.apache.wicket.markup.html.basic,
+              org.apache.wicket.protocol.http,
+              org.apache.wicket.request.http,
+              org.ops4j.pax.wicket.api,
+              org.ops4j.pax.wicket.api.support,
+              org.osgi.framework,
+              net.sf.cglib.proxy;version="${cglib.range}",
+              net.sf.cglib.core;version="${cglib.range}",
+              net.sf.cglib.reflect;version="${cglib.range}",
+              javax.servlet,
+              org.apache.wicket.settings,
+              org.apache.wicket.session,
+              org.apache.wicket.util.file,
+              org.apache.wicket.request,
+              javax.servlet.http,
+              org.apache.wicket.ajax,
+              org.osgi.service.blueprint,
+              org.apache.wicket.core.request.mapper,
+                            *
+            </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

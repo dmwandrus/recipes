@@ -14,20 +14,37 @@
     
     <dependencies>
     
-        <!-- Karaf Test Framework Version -->
-        <dependency> 
-            <groupId>org.ops4j.pax.exam</groupId> 
-            <artifactId>pax-exam</artifactId> 
-            <scope>test</scope>
-        </dependency> 
         <dependency>
-            <groupId>org.apache.karaf.tooling.exam</groupId>
-            <artifactId>org.apache.karaf.tooling.exam.container</artifactId>
+            <groupId>org.ops4j.pax.exam</groupId>
+            <artifactId>pax-exam-container-karaf</artifactId>
+            <scope>test</scope>
         </dependency>
-        <!-- Pax Exam version you would like to use. At least 2.2.x is required. -->
         <dependency>
             <groupId>org.ops4j.pax.exam</groupId>
             <artifactId>pax-exam-junit4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.exam</groupId>
+            <artifactId>pax-exam</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ops4j.pax.url</groupId>
+            <artifactId>pax-url-aether</artifactId>
+            <version>1.6.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         
         <!-- Custom Karaf Dist -->
@@ -38,18 +55,6 @@
             <type>tar.gz</type>
         </dependency>
         
-       
-        <dependency>
-            <groupId>javax.jms</groupId>
-            <artifactId>jms-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-       
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
         
         <dependency>
             <groupId>org.apache.geronimo.specs</groupId>

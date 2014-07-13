@@ -1,0 +1,9 @@
+/itests/target/
+/organizer-framework/recipes/swing-ui/target/
+/organizer-framework/recipes/wicket-ui/target/
+/organizer-framework/recipes/service-api/target/
+/organizer-framework/recipes/service-impl/target/
+/organizer-framework/recipes/common/target/
+/deployment/karaf-feature/target/
+/deployment/custom-karaf/target/
+/organizer-framework/recipes/data-source/target/

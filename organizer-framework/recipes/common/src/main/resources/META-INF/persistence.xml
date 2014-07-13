@@ -11,7 +11,7 @@
         <class>com.da.organizer.recipes.common.IngredientCategory</class>
         <class>com.da.organizer.recipes.common.RecipeInstruction</class>
         <class>com.da.organizer.recipes.common.PersistableFraction</class>
-    
+
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <!--      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:/home/dandrus/dev/db/recipedb"/>

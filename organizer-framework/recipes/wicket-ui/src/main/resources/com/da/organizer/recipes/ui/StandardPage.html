@@ -1,0 +1,102 @@
+
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd" >
+    <head>  
+    <wicket:link>
+        <!--
+        http://stackoverflow.com/questions/10182231/wicket-css-resources
+        Need to tell wicket that it has control over this stylesheet, and
+        that it should look for & load this file from the java class
+        path as opposed to allowing the container to find & load this. 
+        -->
+        <link rel="stylesheet" type="text/css" href="style/css/style.css" />
+        <link rel="shortcut icon" type="image/x-icon" href="style/images/favicon.png">
+        <link rel="stylesheet" type="text/css" href="style/css/style.css" media="all">
+        <link rel="stylesheet" type="text/css" href="style/color/green.css" media="all">
+        <link rel="stylesheet" type="text/css" media="screen" href="style/css/prettyPhoto.css">
+        <link rel="stylesheet" type="text/css" href="style/type/museo.css" media="all">
+        <link rel="stylesheet" type="text/css" href="style/type/ptsans.css" media="all">
+        <link rel="stylesheet" type="text/css" href="style/type/charis.css" media="all">
+
+        <!--[if IE 7]>
+        <link rel="stylesheet" type="text/css" href="style/css/ie7.css" media="all">
+        <![endif]-->
+        <!--[if IE 8]>
+        <link rel="stylesheet" type="text/css" href="style/css/ie8.css" media="all">
+        <![endif]-->
+        <!--[if IE 9]>
+        <link rel="stylesheet" type="text/css" href="style/css/ie9.css" media="all">
+        <![endif]-->
+        <script src="style/js/jquery-1.6.2.min.js"></script>
+        <script src="style/js/ddsmoothmenu.js"></script>
+        <script src="style/js/transify.js"></script>
+        <script src="style/js/jquery.aw-showcase.js"></script>
+        <script src="style/js/jquery.jcarousel.js"></script>
+        <script src="style/js/carousel.js"></script>
+        <script src="style/js/jquery.prettyPhoto.js"></script>
+        <script src="style/js/jquery.superbgimage.min.js"></script>
+        <script src="style/js/jquery.slickforms.js"></script>
+
+    </wicket:link>
+
+
+    <script>
+        jQuery(document).ready(function($) {
+            $('.forms').dcSlickForms();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#showcase").awShowcase({
+                content_width: 900,
+                content_height: 400,
+                auto: true,
+                interval: 3000,
+                continuous: false,
+                arrows: true,
+                buttons: true,
+                btn_numbers: true,
+                keybord_keys: true,
+                mousetrace: false,
+                /* Trace x and y coordinates for the mouse */
+                pauseonover: true,
+                stoponclick: false,
+                transition: 'fade',
+                /* hslide/vslide/fade */
+                transition_delay: 0,
+                transition_speed: 500,
+                show_caption: 'onload'
+                        /* onload/onhover/show */
+            });
+        });
+    </script>
+
+    <title>My Recipes</title>
+</head>
+
+
+<body>
+
+    <div id="superbgimage" style="overflow: hidden; z-index: -1; position: fixed; width: 100%; height: 100%; top: 0px; left: 0px;">
+        <img src="style/images/art/bg1.jpg" style="position: absolute; width: 1585px; height: 951px; left: 0px; top: -265px; z-index: 0; display: none;" rel="1" class="">
+        <div class="scanlines"></div>
+    </div>
+
+    <div class="clear"></div>
+
+
+    <div id="wrapper">
+        <div id="header">
+            <span wicket:id="headerPanel">panel contents come here</span>
+        </div>
+
+        <div id="container" class="opacity" style="position: relative; background-image: none; border: none; background-position: initial initial; background-repeat: initial initial;">
+        
+            <wicket:child/>
+            
+        </div>
+        <div id="copyright">
+                <span wicket:id="footerPanel">footer panel contents here</span>
+        </div>
+    </div>
+</body>
+</html>

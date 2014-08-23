@@ -1,0 +1,28 @@
+/*
+Colors: 
+light gray: B0B0B0
+dark gray: 474747
+mint: DDEDD3
+purple: 5C0F8C
+*/
+.link {
+    color: DDEDD3;
+    text-decoration:none;
+}
+
+body {
+    background-color: 474747;
+}
+
+.panel {
+    background-color: 5C0F8C;
+    color: B0B0B0;
+    border: thin solid;
+}
+
+.title-div {
+
+}
+
+.nav-bar {
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <title>My Recipes - Header Panel</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+
+        Everything outside of the &lt;wicket:panel&gt; tags will be ignored.
+        Might be handy as preview code.
+
+        <wicket:panel>
+
+            <div class ="recipe-view">
+                <div class="recipe-title">
+                    <h1><span wicket:id="recipeTitle">title goes here</span></h1>
+                </div>
+                <div class="recipe-description">
+                    <span wicket:id="recipeDescription"></span> 
+                </div>
+                <div class="recipe-details">
+                    <span wicket:id="recipeOrigin"></span>
+                    <span wicket:id="numberOfServings"></span>
+                    <span wicket:id="prepTime"></span>
+                    <span wicket:id="totalTime"></span>
+                </div>
+
+                <div id="recipe-ingredients">
+                    <ul>
+                        <li wicket:id="ingredientsList">
+                            <li><span wicket:id="amountLabel"></span> <span wicket:id="ingredient"></span> <span wicket:id="prePrep"></span></li>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="recipe-instructions">
+                    <ol>
+                        <li wicket:id="instructionsList">
+                            <span wicket:id="instructionText"></span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+        </wicket:panel>
+
+    </body>
+</html>

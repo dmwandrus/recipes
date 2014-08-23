@@ -7,6 +7,7 @@ package com.da.organizer.recipes.common;
 import com.da.organizer.recipes.common.exception.IngredientParseException;
 import com.da.organizer.recipes.common.unit.IngredientUnit;
 import com.da.organizer.recipes.common.unit.UnitSize;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -28,7 +29,7 @@ import javax.persistence.Embeddable;
  * @author dandrus
  */
 @Embeddable
-public class IngredientAmount {
+public class IngredientAmount implements Serializable{
     
     private PersistableFraction amount;
     
@@ -117,7 +118,7 @@ public class IngredientAmount {
         return sb.toString();
     }
     
-    public String prettyPrint()
+    public String debugPrint()
     {
         StringBuilder sb = new StringBuilder();
         if(amount != null)
@@ -150,5 +151,35 @@ public class IngredientAmount {
 
     }
 
+    public String prettyPrint()
+    {
+        StringBuilder sb = new StringBuilder();
+        if(amount != null)
+        {
+            sb.append(amount.toString());
+            sb.append(" ");
+        }
+        if(unitSize != null)
+        {
+            sb.append(unitSize);
+            sb.append(" ");
+        }
+        
+        if(packageSize != null && packageUnit != null)
+        {
+            sb.append(packageSize);
+            sb.append("-");
+            sb.append(packageUnit);
+            sb.append(" ");
+        }
+        
+        if(unit != null && unit != IngredientUnit.whole)
+        {
+            sb.append(unit);
+            sb.append(" ");
+        }
+        
+        return sb.toString();
+    }
     
 }

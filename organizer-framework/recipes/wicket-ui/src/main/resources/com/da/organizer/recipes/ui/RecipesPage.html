@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <body>
+        This, and everything before here, is ignored.
+        <wicket:extend>
+
+
+            <div class="content">
+
+
+                <span wicket:id="recipeView">panel contents come here</span>
+                <div class="transify" style="background-color: rgb(255, 255, 255); background-image: none; border: 0px none rgb(77, 77, 77); position: absolute; top: 0px; left: 0px; z-index: -1; width: 960px; height: 100%; opacity: 0.9; background-repeat: repeat repeat;"></div>
+            </div>
+
+
+
+            <div class="sidebar">
+                <div class="sidebar-box">
+                    <h4>Actions</h4>
+                    <ul class="latest-posts">
+                        <li><a href="#" wicket:id="newRecipeLink" class="link">Add New Recipe!</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-box">
+                    <h4>Search</h4>
+                    <form class="searchform" method="get" action="#">
+                        <input type="text" id="s" name="s" value="type and hit enter" onfocus="this.value = ''" onblur="this.value = 'type and hit enter'">
+                    </form>
+                </div>
+                <div class="sidebar-box">
+                    <h4>Categories</h4>
+                    <div class="cat-list">
+                        <ul>
+                            <li><a href="#">journal <span>24</span></a></li>
+                            <li><a href="#">photography <span>12</span></a></li>
+                            <li><a href="#">design <span>5</span></a></li>
+                            <li><a href="#">inspiration <span>3</span></a></li>
+                            <li><a href="#">fun <span>16</span></a></li>
+                            <li><a href="#">casual <span>5</span></a></li>
+                            <li><a href="#">business <span>9</span></a></li>
+                            <li><a href="#">web <span>2</span></a></li>
+                            <li><a href="#">color <span>1</span></a></li>
+                            <li><a href="#">portfolio <span>7</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="sidebar-box">
+                    <h4>Tags</h4>
+                    <div class="tag-list">
+                        <ul>
+                            <li><a href="#">journal</a></li>
+                            <li><a href="#">photography</a></li>
+                            <li><a href="#">design</a></li>
+                            <li><a href="#">inspiration</a></li>
+                            <li><a href="#">fun</a></li>
+                            <li><a href="#">casual</a></li>
+                            <li><a href="#">business</a></li>
+                            <li><a href="#">web</a></li>
+                            <li><a href="#">color</a></li>
+                            <li><a href="#">portfolio</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+        </wicket:extend>
+        This, and everything past here, is ignored.
+    </body>
+</html>

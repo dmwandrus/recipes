@@ -25,7 +25,7 @@ public class RecipeInstruction implements Serializable
     @Column(name = "recipe_instruction_id")
     private Long id;
     
-    @Column(name = "instruction_text")
+    @Column(name = "instruction_text", length=2000)
     private String instructionText;
     
 

@@ -5,21 +5,7 @@
             xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
             xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
 
-
-    
-<!--    <bean id="dataSource" class="org.hsqldb.jdbc.JDBCDataSource">
-      <property name="url" value="jdbc:hsqldb:file:~/db/hsqldb"/>
-      <property name="user" value="sa"/>
-      <property name="password" value=""/>
-  </bean>-->
-  
-<!--  <service interface="javax.sql.DataSource" ref="dataSource">
-    <service-properties>
-            <entry key="osgi.jndi.service.name" value="jdbc/recipedb"/>
-    </service-properties>
-  </service>-->
     <bean id="dataSourceMysql" class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource">
-<!--        <property name="driverClassName" value="" />-->
         <property name="url" value="jdbc:mysql://localhost:3306/recipes" />
         <property name="user" value="recipe-service" />
         <property name="password" value="luv2cook" />

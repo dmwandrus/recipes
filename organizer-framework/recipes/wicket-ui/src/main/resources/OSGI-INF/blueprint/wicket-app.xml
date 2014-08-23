@@ -4,6 +4,16 @@
             xmlns:wicket="http://www.ops4j.org/schema/wicket">
 
   <wicket:application id="sample" class="com.da.organizer.recipes.ui.WicketApplication"
-    applicationName="recipes.wicket" mountPoint="wicket/sample" />
+    applicationName="recipes.wicket" mountPoint="organizer/recipes" />
 
+  <!-- this is then injected via 
+    @Inject 
+    @Named("RecipeService")
+    private RecipeService myRecipeService;
+    into the pages that need it -->
+  <reference id="RecipeService"
+        interface="com.da.organizer.recipes.service.RecipeService"/>
+  
+  
+  
 </blueprint>

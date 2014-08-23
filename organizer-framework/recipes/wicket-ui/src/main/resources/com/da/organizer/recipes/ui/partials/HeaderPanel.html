@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+    <title>My Recipes - Header Panel</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body>
+ 
+ Everything outside of the &lt;wicket:panel&gt; tags will be ignored.
+ Might be handy as preview code.
+ 
+ <wicket:panel>
+     <div class="logo">
+        <div>
+            <h1><span wicket:id="title">title goes here</span></h1>
+        </div>
+            
+        <div id="menu" class="menu" style="position: relative; background-image: none; border: none; background-position: initial initial; background-repeat: initial initial;">
+    <ul>
+      <li>
+          <a href="#" wicket:id="home-link">Home</a>
+      </li>
+      
+      <li style="z-index: 100;">
+          <a href="#" wicket:id="ingredients-link">Ingredients</a>
+      </li>
+      <li style="z-index: 99;">
+          <a href="#" wicket:id="recipes-link">Recipes</a>
+      </li>
+      <li style="z-index: 98;">
+          <a href="#" wicket:id="meals-link">Meals</a>
+      </li>
+      <li style="z-index: 97;">
+          <a href="#" wicket:id="blog-link">Blog</a>
+      </li>
+      <li>
+          <a href="#" wicket:id="history-link">History</a>
+      </li>
+    </ul>
+    <br style="clear: left">
+ 
+        <div class="transify" style="background-color: rgb(255, 255, 255); background-image: none; border: 0px none rgb(77, 77, 77); position: absolute; top: 0px; left: 0px; z-index: -1; width: 960px; height: 100%; opacity: 0.9; background-repeat: repeat repeat;">
+            
+        </div>
+        
+        </div>
+            
+     </div>
+ 
+
+ </wicket:panel>
+
+</body>
+</html>

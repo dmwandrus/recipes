@@ -56,7 +56,7 @@ public class Recipe implements Persistable {
     @Column(name = "name")
     private String name;
     
-    @Column(name = "description")
+    @Column(name = "description", length=4000)
     private String description;
     
     @Column(name = "num_servings")
@@ -161,7 +161,7 @@ public class Recipe implements Persistable {
     {
         this.totalTime = totalTime;
     }
-    public Integer getPreTime() {
+    public Integer getPrepTime() {
         return this.prepTime;
     }
     public void setPrepTime(Integer prepTime)

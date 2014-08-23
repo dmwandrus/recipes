@@ -144,7 +144,7 @@ public class RecipeIngredient implements Serializable
         StringBuilder sb = new StringBuilder();
         if(this.recipeAmount != null )
         {
-            sb.append(this.recipeAmount.prettyPrint()).append(" ");
+            sb.append(this.recipeAmount.debugPrint()).append(" ");
         }
         if(this.prePreparation != null)
         {
@@ -154,6 +154,5 @@ public class RecipeIngredient implements Serializable
         }
         return sb.toString();
     }
-
     
 }

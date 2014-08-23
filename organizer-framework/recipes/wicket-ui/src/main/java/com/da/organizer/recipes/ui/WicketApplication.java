@@ -4,6 +4,7 @@
  */
 package com.da.organizer.recipes.ui;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
 /**
@@ -13,10 +14,11 @@ import org.apache.wicket.protocol.http.WebApplication;
 public class WicketApplication extends WebApplication
 {
     public WicketApplication() {
+        
     }
 
     @Override
-    public Class<HomePage> getHomePage() {
+    public Class<? extends Page> getHomePage() {
         return HomePage.class;
     }
 

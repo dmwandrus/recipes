@@ -14,6 +14,7 @@ import javax.inject.Named;
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 
 
 /**
@@ -46,8 +47,8 @@ public class RecipesPage extends StandardPage{
         {
             int randomNumber = random.nextInt(allRecipes.size()-1);
             logger.info("Getting recipe #"+randomNumber+" from list");
-            Recipe randomRecipe = allRecipes.get(randomNumber);
-            add(new RecipeView("recipeView", randomRecipe));
+            myRecipe = allRecipes.get(randomNumber);
+            add(new RecipeView("recipeView", myRecipe));
         }
         else{
             add(new Label("recipeView", "No recipes to display"));
@@ -56,6 +57,14 @@ public class RecipesPage extends StandardPage{
         
         
         add(new BookmarkablePageLink("newRecipeLink", AddNewRecipePage.class));
+        Link recipePageLink = new Link("editRecipeLink"){
+            @Override
+                    public void onClick() {
+                        EditableRecipePage rp = new EditableRecipePage(myRecipe);
+                        setResponsePage(rp);
+                }
+        };
+        add(recipePageLink);
     }
     
     public RecipesPage(Recipe recipe)
@@ -63,10 +72,18 @@ public class RecipesPage extends StandardPage{
         super();
         myRecipe = recipe;
         add(new RecipeView("recipeView", myRecipe));
-        
-        
-        
         add(new BookmarkablePageLink("newRecipeLink", AddNewRecipePage.class));
+        
+        
+        Link recipePageLink = new Link("editRecipeLink"){
+            @Override
+                    public void onClick() {
+                        EditableRecipePage rp = new EditableRecipePage(myRecipe);
+                        setResponsePage(rp);
+                }
+        };
+        add(recipePageLink);
+        
     }
     
     

@@ -131,11 +131,11 @@ public class RecipeIngredient implements Serializable
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        sb.append(this.recipeAmount).append("] [");
-        sb.append(", [");
+        sb.append(this.recipeAmount);
+        sb.append(" ");
+        sb.append(this.ingredientName);
+        sb.append(", ");
         sb.append(this.prePreparation);
-        sb.append("]");
         return sb.toString();
     }
     

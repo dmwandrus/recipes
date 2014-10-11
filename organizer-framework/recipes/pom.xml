@@ -18,7 +18,6 @@
     <module>data-source</module>
     <module>service-api</module> 
     <module>service-impl</module>
-    <module>swing-ui</module>
     <module>wicket-ui</module>
   </modules>
 </project>

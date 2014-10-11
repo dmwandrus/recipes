@@ -86,12 +86,12 @@ table {
 br {
 	line-height: 10px;
 }
-input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner {
+/*input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner {
  border : 0px;
 }
 input[type="submit"]:focus, input[type="button"]:focus {
 	outline : none;
-}
+}*/
 /*-----------------------------------------------------------------------------------*/
 /*	GENERAL
 /*-----------------------------------------------------------------------------------*/
@@ -978,8 +978,8 @@ div.showcase-tooltip {
 .forms fieldset .text-input {
 	background-color: #fff;
 	border:1px solid #dedede;
-	width: 380px;
-	height: 30px;
+	width: 75%;
+	height: 1.5em;
 	padding: 0 10px;
 	color: #4d4d4d;
 	font-family: 'PTSansRegular';
@@ -989,13 +989,13 @@ div.showcase-tooltip {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+
 .forms fieldset .password {
 }
 .forms fieldset .text-area {
 	background-color: #fff;
 	border:1px solid #dedede;
-	width: 380px;
-	height: 140px;
+        width: 100%;
 	resize: none;
 	color: #4d4d4d;
 	font-family: 'PTSansRegular';
@@ -1005,6 +1005,33 @@ div.showcase-tooltip {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }
+
+.editForm span{
+    width: 25%;
+    display: inline-block;
+}
+
+.editForm input{
+    width: 75%;
+}
+
+.ingredientEditForm {
+    width: 100%;
+}
+
+.instructionEditForm {
+    width: 100%;
+}
+
+.recipeField {
+    width: 100%;
+}
+
+.recipeArea {
+    width: 100%;
+}
+
+
 .forms fieldset .radio {
 }
 .forms fieldset .checkbox {

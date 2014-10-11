@@ -4,7 +4,7 @@
  */
 package com.da.organizer.recipes.ui;
 
-import com.da.organizer.recipes.ui.forms.RecipeForm;
+import com.da.organizer.recipes.ui.forms.AddRecipeForm;
 
 /**
  *
@@ -14,7 +14,7 @@ public class AddNewRecipePage extends StandardPage{
     
     public AddNewRecipePage()
     {
-        add(new RecipeForm("recipeForm"));
+        add(new AddRecipeForm("recipeForm"));
         
     }
 }

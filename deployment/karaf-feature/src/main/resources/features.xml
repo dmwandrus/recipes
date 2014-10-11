@@ -51,7 +51,7 @@
         <feature>deps-mysql</feature>
         <feature>deps-openjpa</feature>
         <bundle>mvn:com.da.organizer.recipes/recipes-data-source/${project.version}</bundle>
-        <bundle>mvn:com.da.organizer.recipes/recipes-common/${project.version}</bundle>
+        <bundle>mvn:com.da.organizer.recipes/recipes-model/${project.version}</bundle>
         <bundle>mvn:com.da.organizer.recipes/recipes-service-api/${project.version}</bundle>
         <bundle>mvn:com.da.organizer.recipes/recipes-service-impl/${project.version}</bundle>
     </feature>

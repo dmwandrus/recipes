@@ -69,13 +69,13 @@
         
         <dependency>
             <groupId>com.da.organizer.recipes</groupId>
-            <artifactId>recipes-common</artifactId>
+            <artifactId>recipes-model</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
             <groupId>com.da.organizer.recipes</groupId>
-            <artifactId>recipes-common</artifactId>
+            <artifactId>recipes-model</artifactId>
             <version>${project.version}</version>
             <classifier>tests</classifier>
             <scope>test</scope>
@@ -110,7 +110,7 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>com.da.organizer.recipes</groupId>
-                                    <artifactId>recipes-common</artifactId>
+                                    <artifactId>recipes-model</artifactId>
                                     <version>${project.version}</version>
                                     <classifier>tests</classifier>
                                     <type>jar</type>

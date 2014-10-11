@@ -8,10 +8,10 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>recipes-common</artifactId>
+    <artifactId>recipes-model</artifactId>
     <packaging>bundle</packaging>
 
-    <name>recipes :: common</name>
+    <name>recipes :: model</name>
 
     <dependencies>
         <dependency>

@@ -33,23 +33,7 @@ public class SimpleRecipeService implements RecipeService {
     @Override
     public Long addRecipe(Recipe recipe) {
         LOG.info("SAVE: "+recipe.prettyPrint());
-//        for (RecipeIngredient ri : recipe.getIngredients()) {
-//            Ingredient i = retrieveIngredientByName(ri.getIngredientName());
-//            if (i != null) {
-//                // TODO - merge old & new ingredients....how to update...
-//                ri.setIngredient(i);
-//            } else {
-//                em.persist(ri.getIngredient());
-////                ri.setIngredient(i);
-////                em.flush();
-//            }
-//            LOG.info("RECIPE INGREDIENT: "+ri);
-//            LOG.info("INGREDIENT: "+i);
-//        }
-//        LOG.info("POST SAVE: "+recipe.toLongString());
         em.persist(recipe);
-        
-
         return recipe.getId();
     }
 
@@ -117,5 +101,15 @@ public class SimpleRecipeService implements RecipeService {
             LOG.debug("No ingedient found with name: " + name);
         }
         return found;
+    }
+
+    @Override
+    public void updateRecipe(Recipe recipe) {
+        LOG.info("Updating to: "+recipe.prettyPrint());
+        // error checking - 
+        // * does the incoming recipe have an id? if yes, fine
+        //   else, just throw an error
+        
+        em.persist(recipe);
     }
 }

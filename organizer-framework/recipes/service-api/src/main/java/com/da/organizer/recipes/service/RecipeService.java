@@ -28,6 +28,7 @@ public interface RecipeService {
      * @return recipe Id
      */
     Long addRecipe(Recipe recipe);
+    void updateRecipe(Recipe recipe);
     Long addIngredient(Ingredient ingredient);
     
     List<Recipe> retrieveRecipes();

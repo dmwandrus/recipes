@@ -22,16 +22,16 @@ import org.apache.wicket.util.io.IClusterable;
  *
  * @author dandrus
  */
-public class RecipeForm extends Panel
+public class AddRecipeForm extends Panel
 {
-    final static Logger logger = Logger.getLogger(RecipeForm.class);
+    final static Logger logger = Logger.getLogger(AddRecipeForm.class);
     
     @Inject 
     @Named("RecipeService")
     private RecipeService myRecipeService;
     
     
-    public RecipeForm(String id)
+    public AddRecipeForm(String id)
     {
         super(id);
         
@@ -46,7 +46,7 @@ public class RecipeForm extends Panel
             {
                 logger.debug("Got input from form... "+input.text);
                 List<Recipe> recipes = RecipeParser.fromString(input.text);
-                logger.debug("Got recipes: (hopefully just one....)");
+                logger.info("Got recipes: (hopefully just one....)");
                 for(Recipe recipe:recipes)
                 {
                     System.out.println(recipe.prettyPrint());

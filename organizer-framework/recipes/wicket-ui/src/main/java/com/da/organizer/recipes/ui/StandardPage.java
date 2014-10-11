@@ -19,15 +19,11 @@ public class StandardPage extends WebPage{
     
     private HeaderPanel header;
     private FooterPanel footer;
-    
-     private static final ResourceReference RESOURCE_REF = new PackageResourceReference(StandardPage.class,
-        "style/images/art/bg1.jpg");
-    
+        
     public StandardPage()
     {
        add(header = new HeaderPanel("headerPanel"));
        add(footer = new FooterPanel("footerPanel"));
-//       add(new Image("backgroundImage", RESOURCE_REF));
     }
     
 }

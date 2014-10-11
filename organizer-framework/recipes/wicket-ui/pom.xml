@@ -20,15 +20,13 @@
         </dependency>
         <dependency>
             <groupId>com.da.organizer.recipes</groupId>
-            <artifactId>recipes-common</artifactId>
+            <artifactId>recipes-model</artifactId>
             <version>${project.version}</version>
-            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>com.da.organizer.recipes</groupId>
             <artifactId>recipes-service-api</artifactId>
             <version>${project.version}</version>
-            <type>jar</type>
         </dependency>
         <!-- Pax Wicket Core -->
 <dependency>

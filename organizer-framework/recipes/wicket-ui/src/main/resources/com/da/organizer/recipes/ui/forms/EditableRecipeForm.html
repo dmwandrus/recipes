@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <title>My Recipes - Header Panel</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+
+        Everything outside of the &lt;wicket:panel&gt; tags will be ignored.
+        Might be handy as preview code.
+
+        <wicket:panel>
+
+            <form wicket:id="form" class="panel">
+                <fieldset>
+                    <!--<legend>Edit Recipe</legend>-->
+
+                    <p class="editForm"><span>Title: </span><input wicket:id="title" type="text" class="recipeField text-input"/></p>
+                    <p class="editForm"><span>Description: </span><textarea rows="4 wicket:id="description" type="text" class="recipeArea text-area"/></p>
+                    <p class="editForm"><span>Origin: </span><input wicket:id="origin" type="text" class="recipeField text-input"/></p>
+                    <p class="editForm"><span>Number of Servings: </span><input wicket:id="servings" type="text" class="recipeField text-input"/></p>
+                    <p class="editForm"><span>Prep Time: </span><input wicket:id="prep" type="text" class="recipeField text-input"/></p>
+                    <p class="editForm"><span>Total Time: </span><input wicket:id="total" type="text" class="recipeField text-input"/></p>
+
+                    <h4>Ingredients</h4>
+                    <div id="recipe-ingredients" >
+                        <ul title="Ingredients" class="ingredientEditForm">
+                            <li class="ingredientEditForm" wicket:id="ingredientsList">
+                                <input wicket:id="ingredient" type="text" class="recipeField text-input"/>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h4>Instructions</h4>
+                    <div id="recipe-instructions">
+                        <ol title="Instructions">
+                            <li class="instructionEditForm" wicket:id="instructionsList">
+                                <textarea rows="4" wicket:id="instruction" type="text" class="recipeArea text-area"/>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <p><input type="submit" value="Submit Edits" class="btn-submit"></input></p>
+                </fieldset>
+            </form>
+
+        </wicket:panel>
+
+    </body>
+</html>
+
+
+
+
+
+

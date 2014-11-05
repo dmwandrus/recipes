@@ -134,8 +134,12 @@ public class RecipeIngredient implements Serializable
         sb.append(this.recipeAmount);
         sb.append(" ");
         sb.append(this.ingredientName);
-        sb.append(", ");
-        sb.append(this.prePreparation);
+        
+        if(this.prePreparation != null)
+        {
+            sb.append(", ");
+            sb.append(this.prePreparation);
+        }
         return sb.toString();
     }
     
@@ -152,6 +156,9 @@ public class RecipeIngredient implements Serializable
             sb.append(this.prePreparation);
             sb.append("' ");
         }
+        sb.append("\ningredient: '");
+        sb.append(ingredientName);
+        sb.append("' ");
         return sb.toString();
     }
     

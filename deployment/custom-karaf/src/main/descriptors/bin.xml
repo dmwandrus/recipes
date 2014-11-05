@@ -61,10 +61,7 @@
             <directory>target/classes</directory>
             <outputDirectory>/</outputDirectory>
             <includes>
-                <include>bin/admin</include>
-                <include>bin/karaf</include>
-                <include>bin/start</include>
-                <include>bin/stop</include>
+                <include>bin/*</include>
             </includes>
             <fileMode>0755</fileMode>
             <directoryMode>0755</directoryMode>

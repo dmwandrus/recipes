@@ -88,14 +88,61 @@ public class RecipeParserTest {
     }
     
     @Test
+    public void testParseServings()
+    {
+        Recipe recipe = new Recipe();
+        
+        RecipeParser.parseServingsString("4", recipe);
+        assertEquals(recipe.getNumberOfServings(), 4);
+        assertEquals(recipe.getServingsDescription(), "4");
+        
+        RecipeParser.parseServingsString("4 - 6", recipe);
+        assertEquals(recipe.getNumberOfServings(), 4);
+        assertEquals(recipe.getServingsDescription(), "4 - 6");
+        
+        RecipeParser.parseServingsString("4-6", recipe);
+        assertEquals(recipe.getNumberOfServings(), 4);
+        assertEquals(recipe.getServingsDescription(), "4-6");
+        
+        RecipeParser.parseServingsString("4 appetizers", recipe);
+        assertEquals(recipe.getNumberOfServings(), 4);
+        assertEquals(recipe.getServingsDescription(), "4 appetizers");
+        
+        RecipeParser.parseServingsString("4 mains or 6 appetizers", recipe);
+        assertEquals(recipe.getNumberOfServings(), 4);
+        assertEquals(recipe.getServingsDescription(), "4 mains or 6 appetizers");
+    }
+    
+    @Test
     public void testIngParser_onion()
     {
         String onion = "1 large onion, chopped coarsely";
         RecipeIngredient onionIng = RecipeParser.parseIngredientString(onion);
         //testing is so tedious sometimes....especially string parsing....but, how else would I go about this????
-//        assertEquals((Integer)1, onionIng.getAmount().getWhole());
-//        assertEquals(IngredientUnit.whole, onionIng.getUnit());
-//        assertEquals(des)
+        checkAmount(0, 0, (Integer)1, onionIng);
+        
+        assertEquals(IngredientUnit.whole, onionIng.getRecipeAmount().getUnit());
+        assertEquals(onionIng.getRecipeAmount().getUnitSize(), UnitSize.large);
+        assertEquals(onionIng.getIngredientName(), "onion");
+        assertEquals(onionIng.getPrePreparation(), "chopped coarsely");
+    }
+    
+    @Test 
+    public void testWithLeadingSpace()
+    {
+        String ingString = " pepper";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "pepper");
+        if(ingredient.getPrePreparation() != null && !ingredient.getPrePreparation().isEmpty())
+        {
+            fail("Ingredient should have no pre prep or additional notes.");
+        }
+        
+        assertNull(ingredient.getRecipeAmount().getAmount());
+        assertNull(ingredient.getRecipeAmount().getUnit());
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
     }
     
     @Test
@@ -104,6 +151,25 @@ public class RecipeParserTest {
         String pb = "2 T crunchy peanut butter, divided";
         RecipeIngredient pbIng = RecipeParser.parseIngredientString(pb);
     }
+    
+    @Test
+    public void testIngParser_multipleNumbers()
+    {
+        String ingString = "1/3 cup dried currants, soaked in 1/2 cup hot water (optional)";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals(ingredient.getIngredientName(), "dried currants");
+        assertEquals(ingredient.getPrePreparation(), "soaked in 1/2 cup hot water (optional)");
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        checkAmount((Integer) 1, (Integer)3, 0, ingredient);
+    }
+    
+    private void checkAmount(Integer numerator, Integer denominator, Integer whole, RecipeIngredient ingredient)
+    {
+        assertEquals(ingredient.getRecipeAmount().getAmount().getNumerator(), numerator);
+        assertEquals(ingredient.getRecipeAmount().getAmount().getDenominator(), denominator);
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), whole);
+    }
+    
     
     @Test
     public void testIngParser_cansTomatos()
@@ -247,6 +313,66 @@ public class RecipeParserTest {
         assertNull(ingredient.getRecipeAmount().getPackageSize());
         assertNull(ingredient.getRecipeAmount().getPackageUnit());
         assertNull(ingredient.getRecipeAmount().getUnitSize());
+    }
+    
+    @Test
+    public void testIngredient_flourWithLeadingSpace()
+    {
+        String ingString = " 2 1/2 c flour";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals("Ingredient name is incorrect", ingredient.getIngredientName(), "flour");
+        if(ingredient.getPrePreparation() != null && !ingredient.getPrePreparation().isEmpty())
+        {
+            fail("Ingredient should have no pre prep or additional notes.");
+        }
+        assertEquals(ingredient.getRecipeAmount().getAmount().getWhole(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getNumerator(), ((Integer)1));
+        assertEquals(ingredient.getRecipeAmount().getAmount().getDenominator(), ((Integer)2));
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        assertNull(ingredient.getRecipeAmount().getPackageSize());
+        assertNull(ingredient.getRecipeAmount().getPackageUnit());
+        assertNull(ingredient.getRecipeAmount().getUnitSize());
+    }
+    
+    @Test
+    public void testIngredient_lemonJuice()
+    {
+        String ingString = "Juice of half a lemon";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        
+        ingString = "2 4.5-pound pork shoulder";
+        ingredient = RecipeParser.parseIngredientString(ingString);
+        assertTrue(ingredient.getRecipeAmount().getPackageSize() == 4.5);
+        assertTrue(ingredient.getRecipeAmount().getPackageUnit().equals(IngredientUnit.pound));
+        checkAmount(0, 0, 2, ingredient); // 2 whole items, no fraction.
+        
+        ingString = "4 Tbsp. cinnamon";
+        ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals(ingredient.getIngredientName(), "cinnamon");
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.tablespoon);
+        checkAmount(0, 0, 4, ingredient);
+        
+        ingString = "1 medium-to-large firm ripe melon";
+        ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals(ingredient.getIngredientName(), "medium-to-large firm ripe melon");
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        checkAmount(0, 0, 1, ingredient);
+    }
+    
+    @Test
+    public void moreTesting(){
+        
+        String ingString = "1 2-by-1/2-inch strip orange zest";
+        RecipeIngredient ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals(ingredient.getIngredientName(), "2-by-1/2-inch strip orange zest");
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.whole);
+        checkAmount(0, 0, 1, ingredient);
+        
+        ingString = "2 cups lightly-packed fresh spring greens";
+        ingredient = RecipeParser.parseIngredientString(ingString);
+        assertEquals(ingredient.getIngredientName(), "lightly-packed fresh spring greens");
+        assertEquals(ingredient.getRecipeAmount().getUnit(), IngredientUnit.cup);
+        checkAmount(0, 0, 2, ingredient);
     }
     
     @Test

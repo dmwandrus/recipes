@@ -18,7 +18,13 @@
             <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/recipes"/>-->
             <property name="openjpa.jdbc.DBDictionary" value="mysql"/>
             <property name="openjpa.Log" value="DefaultLevel=TRACE, Tool=INFO, SQL=TRACE"/>
+            <!-- update database -->
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(foreignKeys=true,schemaAction='refresh')"/>
+            
+            
+            <!-- clean & rebuild db -->
+            <!--<property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(foreignKeys=true,schemaAction='drop,add')"/>-->
+            
         </properties>
     </persistence-unit>
 </persistence>

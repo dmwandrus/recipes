@@ -114,7 +114,15 @@ public class PersistableFraction implements Serializable {
 
             int whole = fraction.intValue();
             Fraction fractionLessWhole = fraction.subtract(whole);
-            PersistableFraction pFraction = new PersistableFraction(whole, fractionLessWhole.getNumerator(), fractionLessWhole.getDenominator());
+            int numerator = fractionLessWhole.getNumerator();
+            int denominator = fractionLessWhole.getDenominator();
+            if(numerator == 0)
+            {
+                // then just clear out the fraction entirely. 
+                // its just a whole number
+                denominator = 0;
+            }
+            PersistableFraction pFraction = new PersistableFraction(whole, numerator, denominator);
             return pFraction;
         } else if (split.length == 2) {
             try {

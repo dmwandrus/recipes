@@ -61,10 +61,11 @@ public class PersistableFractionTest {
         PersistableFraction pfraction = PersistableFraction.fromString("2");
         LOG.info("Fraction: "+pfraction.toString());
         Integer expectedNumerator = 0;
+        Integer expectedDenominator = 0;
         Integer expectedWhole = 2;
         assertEquals(pfraction.getWhole(), expectedWhole);
         assertEquals(pfraction.getNumerator(), expectedNumerator);
-        assertTrue(pfraction.getDenominator() > 0); // since a den. can't be zero or less. 
+        assertEquals(pfraction.getDenominator(), expectedDenominator); // since a den. can't be zero or less. 
         assertEquals(pfraction.toString(), "2");
     }
     

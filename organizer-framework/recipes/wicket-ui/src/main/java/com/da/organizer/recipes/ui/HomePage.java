@@ -6,6 +6,7 @@ package com.da.organizer.recipes.ui;
 
 import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.service.RecipeService;
+import com.da.organizer.recipes.ui.forms.SearchForm;
 import com.da.organizer.recipes.ui.previews.RecipePreview;
 import java.util.List;
 import javax.inject.Inject;
@@ -30,13 +31,23 @@ public class HomePage extends StandardPage {
     @Named("RecipeService")
     private RecipeService myRecipeService;
     
-    private List<Recipe> allRecipes;
+    private List<Recipe> recipesToView;
     
     public HomePage() {
         super();
+        recipesToView = myRecipeService.retrieveRecipes();
+        init();
+    }
+    
+    public HomePage(List<Recipe> recipes) {
+        super();
+        recipesToView = recipes;
+        init();
         
-        allRecipes = myRecipeService.retrieveRecipes();
-        add(new ListView<Recipe>("allRecipes", allRecipes) {
+    }
+    private void init()
+    {
+        add(new ListView<Recipe>("allRecipes", recipesToView) {
 
             @Override
             protected void populateItem(ListItem<Recipe> item) {
@@ -44,7 +55,5 @@ public class HomePage extends StandardPage {
                 item.add(new RecipePreview("recipePreview", recipe));
             }
         });
-                
-        
     }
 }

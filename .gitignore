@@ -7,3 +7,4 @@
 /deployment/karaf-feature/target/
 /deployment/custom-karaf/target/
 /organizer-framework/recipes/data-source/target/
+/run/

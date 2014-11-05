@@ -4,10 +4,7 @@
  */
 package com.da.organizer.recipes.common;
 
-import com.da.organizer.recipes.common.exception.IngredientParseException;
 import com.da.organizer.recipes.common.testtools.RecipeFactory;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.PersistenceException;
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -15,6 +12,10 @@ import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -24,16 +25,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Basically, I need to re-write this entire test. I went into it assuming that
- * every 'RecipeIngredient' object would be immediately linked to an actual
- * 'Ingredient' object. However, I haven't worked out how to differentiate
- * between apples, granny smith apples, tart apples, sweet apples, etc. I would
- * like those to all link to 'apple' and then maybe their specific subtype.
- * Therefore, I have decided to simply persist the recipe's ingredient string
- * and then, later, learn to do some data post-processing and after I add in
- * ingredient data, link up the recipes with that ingredient string. I changed
- * my most basic assumption on how this how thing would work.
- *
  * @author dandrus
  */
 public class RecipeTest {
@@ -158,4 +149,15 @@ public class RecipeTest {
 
     }
 
+    
+    @Test
+    public void testStringFormat()
+    {
+        String thing = "pizza";
+        LOG.info("Searching for "+thing);
+        String searchFormat = "%%%s%%";
+        String searchString = String.format(searchFormat, thing);
+        LOG.info("Search String: '"+searchString+"'");
+        assertEquals(searchString, "%pizza%");
+    }
 }

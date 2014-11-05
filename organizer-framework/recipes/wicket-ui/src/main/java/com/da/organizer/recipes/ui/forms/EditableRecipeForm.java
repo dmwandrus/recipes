@@ -50,7 +50,7 @@ public class EditableRecipeForm extends Panel {
                 LOGGER.info("ORIGINAL DESCRIPTION: " + myRecipe.getDescription());
                 LOGGER.info("NEW DESCRIPTION: " + descriptionField.getValue());
 
-//        myRecipeService.updateRecipe(myRecipe);
+                myRecipeService.updateRecipe(myRecipe);
 
                 RecipesPage rp = new RecipesPage(myRecipe);
                 setResponsePage(rp);
@@ -91,7 +91,6 @@ public class EditableRecipeForm extends Panel {
                 item.add(new TextArea("instruction", Model.of(ri.getInstructionText())));
             }
         });
-
 
     }
 }

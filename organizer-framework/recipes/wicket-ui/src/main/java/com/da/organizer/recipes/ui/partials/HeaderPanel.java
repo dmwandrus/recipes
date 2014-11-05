@@ -6,6 +6,7 @@ package com.da.organizer.recipes.ui.partials;
 
 import com.da.organizer.recipes.ui.HomePage;
 import com.da.organizer.recipes.ui.RecipesPage;
+import com.da.organizer.recipes.ui.forms.SearchForm;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -30,6 +31,7 @@ public class HeaderPanel extends Panel
         add(new Label("meals-link", "Meals"));
         add(new Label("history-link", "History"));
         add(new Label("blog-link", "Blog"));
+        add(new SearchForm("search-form"));
     }
     
     

@@ -17,5 +17,6 @@ public enum UnitSize {
     thick, 
     thin,
     scant,
-    generous
+    generous, 
+    packed
 }

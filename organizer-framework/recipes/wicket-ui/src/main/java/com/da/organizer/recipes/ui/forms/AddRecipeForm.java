@@ -35,8 +35,8 @@ public class AddRecipeForm extends Panel
     {
         super(id);
         
-         final Input input = new Input();
-        setDefaultModel(new CompoundPropertyModel<Input>(input));
+        final InputModel input = new InputModel();
+        setDefaultModel(new CompoundPropertyModel<InputModel>(input));
 
         // Add a form with an onSumbit implementation that sets a message
         Form<?> form = new Form("form")
@@ -68,21 +68,4 @@ public class AddRecipeForm extends Panel
         
         
     }
-    
-    /** Simple data class that acts as a model for the input fields. */
-    private static class Input implements IClusterable
-    {
-        /** some plain text. */
-        public String text = "";
-
-        /**
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString()
-        {
-            return "text = '" + text + "'";
-        }
-    }
-
 }

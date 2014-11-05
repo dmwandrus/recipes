@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,6 +34,10 @@ import org.apache.log4j.Logger;
                 query="SELECT r FROM Recipe r"),
     @NamedQuery(name="Recipe.findByName",
                 query="SELECT r FROM Recipe r WHERE r.name = :name"),
+    @NamedQuery(name="Recipe.findThings",
+                query="SELECT r FROM Recipe r"
+                        + " WHERE r.name LIKE :thing "
+                        + " OR r.description LIKE :thing ")
 }) 
 @Table(name="RECIPE")
 public class Recipe implements Persistable {
@@ -63,14 +67,17 @@ public class Recipe implements Persistable {
     @Column(name = "num_servings")
     private int numberOfServings;
     
+    @Column(name = "serving_description")
+    private String servingsDescription;
+    
     @Column(name = "submitter_name")
     private String submitterName;
     
     @Column(name = "prep_time_minutes")
-    private Integer prepTime;
+    private String prepTime;
     
     @Column(name = "total_time_minutes")
-    private Integer totalTime;
+    private String totalTime;
     
     @Column(name = "needs_review")
     private Boolean needsReview;
@@ -78,10 +85,10 @@ public class Recipe implements Persistable {
     @Column(name = "origination")
     private String origination; // magazine, family, etc
     
-     @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER) @OrderColumn
     private List<RecipeInstruction> instructions = new ArrayList<>();
     
-     @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER) @OrderColumn
     private List<RecipeIngredient> ingredients = new ArrayList<>();
     
     public Recipe() {
@@ -155,17 +162,17 @@ public class Recipe implements Persistable {
         this.name = name;
     }
 
-    public Integer getTotalTime() {
+    public String getTotalTime() {
         return this.totalTime;
     }
-    public void setTotalTime(Integer totalTime)
+    public void setTotalTime(String totalTime)
     {
         this.totalTime = totalTime;
     }
-    public Integer getPrepTime() {
+    public String getPrepTime() {
         return this.prepTime;
     }
-    public void setPrepTime(Integer prepTime)
+    public void setPrepTime(String prepTime)
     {
         this.prepTime = prepTime;
     }
@@ -178,6 +185,14 @@ public class Recipe implements Persistable {
         this.numberOfServings = numberOfServings;
     }
 
+    public String getServingsDescription() {
+        return servingsDescription;
+    }
+
+    public void setServingsDescription(String servingsDescription) {
+        this.servingsDescription = servingsDescription;
+    }
+    
     public String getOrigination() {
         return origination;
     }

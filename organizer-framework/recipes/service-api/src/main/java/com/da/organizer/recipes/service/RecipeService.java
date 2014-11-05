@@ -41,4 +41,13 @@ public interface RecipeService {
     
     boolean removeRecipe(Long id);
     boolean removeIngredient(Long id);
+    
+    /**
+     * This will look for the 'thing' in the name, description, instructions
+     * AND ingredients in a recipe and return all recipes that mention 
+     * the 'thing'
+     * @param thing search term
+     * @return List of recipes
+     */
+    List<Recipe> simpleSearch(String thing);
 }

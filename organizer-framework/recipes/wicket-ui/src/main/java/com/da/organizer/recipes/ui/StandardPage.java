@@ -19,9 +19,11 @@ public class StandardPage extends WebPage{
     
     private HeaderPanel header;
     private FooterPanel footer;
+    
         
     public StandardPage()
     {
+        
        add(header = new HeaderPanel("headerPanel"));
        add(footer = new FooterPanel("footerPanel"));
     }

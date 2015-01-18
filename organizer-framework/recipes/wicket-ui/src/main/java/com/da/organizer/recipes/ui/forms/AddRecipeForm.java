@@ -7,7 +7,7 @@ package com.da.organizer.recipes.ui.forms;
 import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.common.parse.RecipeParser;
 import com.da.organizer.recipes.service.RecipeService;
-import com.da.organizer.recipes.ui.RecipesPage;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +16,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.util.io.IClusterable;
 
 /**
  *
@@ -47,17 +46,28 @@ public class AddRecipeForm extends Panel
                 logger.debug("Got input from form... "+input.text);
                 List<Recipe> recipes = RecipeParser.fromString(input.text);
                 logger.info("Got recipes: (hopefully just one....)");
+                List<Recipe> unableToSave = new ArrayList<>();
                 for(Recipe recipe:recipes)
                 {
-                    System.out.println(recipe.prettyPrint());
                     try{
                     myRecipeService.addRecipe(recipe);
                     }catch(Exception ex)
                     {
                         logger.error("Unable to save Recipe: "+recipe.getName(), ex);
+                        unableToSave.add(recipe);
                     }
                 }
                 input.text = "";
+                if(!unableToSave.isEmpty())
+                {
+                    StringBuilder b = new StringBuilder();
+                    b.append("Unable to save the following recipes: ");
+                    for(Recipe recipe:unableToSave)
+                    {
+                        b.append("\n\t"+recipe.getName());
+                    }
+                    input.text = b.toString();
+                }
                 setResponsePage(getPage());
             }
         };

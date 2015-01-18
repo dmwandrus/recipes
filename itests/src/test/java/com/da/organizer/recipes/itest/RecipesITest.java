@@ -99,6 +99,12 @@ public class RecipesITest {
     }
     
     @Test
+    public void processIngredients()
+    {
+        
+    }
+    
+    @Test
     public void simpleSearchTest()
     {
         List<Recipe> allRecipes = recipeService.retrieveRecipes();

@@ -67,6 +67,20 @@ public class RecipeTest {
         EntityTransaction tx = em.getTransaction();
         tx.commit();
     }
+    
+    public void rollbackTX()
+    {
+        try{
+        EntityTransaction tx = em.getTransaction();
+        if(tx.isActive())
+        {
+            tx.rollback();
+        }
+        }catch(Exception e)
+        {
+            // unable to rollback
+        }
+    }
 
     /**
      * Test of getId method, of class Recipe.
@@ -112,7 +126,7 @@ public class RecipeTest {
                 {
                     if(origIng.getIngredientName().equals(foundIng.getIngredientName()))
                     {
-                        assertEquals(origIng.getPrePreparation(), foundIng.getPrePreparation());
+                        assertEquals(origIng.getDescriptors(), foundIng.getDescriptors());
                         assertEquals(origIng.getRecipeAmountAsString(), foundIng.getRecipeAmountAsString());
                         isFound = true;
                     }
@@ -144,7 +158,10 @@ public class RecipeTest {
 
         } catch (Throwable t) {
             LOG.info("THREW UP: ", t);
+            
             fail("unable to persist");
+        }finally{
+            rollbackTX();
         }
 
     }

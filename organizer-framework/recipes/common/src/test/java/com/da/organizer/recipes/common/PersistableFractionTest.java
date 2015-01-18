@@ -116,4 +116,17 @@ public class PersistableFractionTest {
         assertEquals(pfraction.getDenominator(), expectedDenominator);
         assertEquals(pfraction.toString(), "2 1/2");
     }
+    
+    @Test
+    public void test_10_dot_7() throws IngredientParseException {
+        PersistableFraction pfraction = PersistableFraction.fromString("10.7");
+        LOG.info("Fraction: "+pfraction.toString());
+        Integer expectedNumerator = 7;
+        Integer expectedDenominator = 10;
+        Integer expectedWhole = 10;
+        assertEquals(pfraction.getWhole(), expectedWhole);
+        assertEquals(pfraction.getNumerator(), expectedNumerator);
+        assertEquals(pfraction.getDenominator(), expectedDenominator);
+        assertEquals(pfraction.toString(), "10 7/10");
+    }
 }

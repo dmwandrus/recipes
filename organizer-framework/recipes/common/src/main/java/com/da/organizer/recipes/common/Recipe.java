@@ -6,14 +6,19 @@ package com.da.organizer.recipes.common;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -90,6 +95,13 @@ public class Recipe implements Persistable {
     
     @OneToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER) @OrderColumn
     private List<RecipeIngredient> ingredients = new ArrayList<>();
+    
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="RECIPE_TAG",
+        joinColumns={@JoinColumn(name="recipe_id")},
+        inverseJoinColumns={@JoinColumn(name="tag_id")})
+    private Set<Tag> tags = new HashSet<Tag>();
+    
     
     public Recipe() {
     }
@@ -222,19 +234,13 @@ public class Recipe implements Persistable {
     {
         StringBuilder b = new StringBuilder();
         b.append("\nRecipe: ");
-        b.append(createVersionString());
-        b.append("\n").append(name).append(" submitted by ");
-//        if (submitter != null) {
-//            b.append(submitter.getUsername());
-//        } else {
-            b.append("Anonymous");
-//        }
+//        b.append(createVersionString());
         b.append("\nOrigination: ").append(origination);
         b.append("\nDescription: ").append(description);
         b.append("\nServes: ").append(numberOfServings);
         for(RecipeIngredient ingredient:ingredients)
         {
-            b.append("\n * ").append(ingredient.prettyPrint());
+            b.append("\n  ").append(ingredient.prettyPrint());
         }
         int i = 1;
         for(RecipeInstruction instruction:instructions)

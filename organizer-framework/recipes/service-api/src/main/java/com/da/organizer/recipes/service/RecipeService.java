@@ -50,4 +50,6 @@ public interface RecipeService {
      * @return List of recipes
      */
     List<Recipe> simpleSearch(String thing);
+    
+    public void runProcessors();
 }

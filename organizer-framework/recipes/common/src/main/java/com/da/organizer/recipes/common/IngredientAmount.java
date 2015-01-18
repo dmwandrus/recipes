@@ -6,10 +6,11 @@ package com.da.organizer.recipes.common;
 
 import com.da.organizer.recipes.common.exception.IngredientParseException;
 import com.da.organizer.recipes.common.unit.IngredientUnit;
-import com.da.organizer.recipes.common.unit.UnitSize;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  * The amount of an ingredient used in a recipe can be an exacting
@@ -31,29 +32,20 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class IngredientAmount implements Serializable{
     
+    // embedded, columns defined in fraction class
     private PersistableFraction amount;
     
     @Column(name = "unit")
+    @Enumerated(EnumType.STRING)
     private IngredientUnit unit;
-    
-    @Column(name = "unit_size")
-    private UnitSize unitSize;
     
     @Column(name = "package_size")
     private Double packageSize;
     
     @Column(name = "package_unit")
+    @Enumerated(EnumType.STRING)
     private IngredientUnit packageUnit;
-    
-    
-    public void setUnitSize(UnitSize us)
-    {
-        this.unitSize = us;
-    }
-    public UnitSize getUnitSize()
-    {
-        return unitSize;
-    }
+ 
     public PersistableFraction getAmount()
     {
         return amount;
@@ -104,11 +96,7 @@ public class IngredientAmount implements Serializable{
             sb.append(unit);
             sb.append(" ");
         }
-        if(unitSize != null)
-        {
-            sb.append(unitSize);
-            sb.append(" ");
-        }
+
         if(packageSize != null && packageUnit != null)
         {
             sb.append(packageSize);
@@ -133,12 +121,7 @@ public class IngredientAmount implements Serializable{
             sb.append(unit);
             sb.append("' ");
         }
-        if(unitSize != null)
-        {
-            sb.append("\nunit size: '");
-            sb.append(unitSize);
-            sb.append("' ");
-        }
+
         if(packageSize != null && packageUnit != null)
         {
             sb.append("\npackage size: '");
@@ -157,11 +140,6 @@ public class IngredientAmount implements Serializable{
         if(amount != null)
         {
             sb.append(amount.toString());
-            sb.append(" ");
-        }
-        if(unitSize != null)
-        {
-            sb.append(unitSize);
             sb.append(" ");
         }
         

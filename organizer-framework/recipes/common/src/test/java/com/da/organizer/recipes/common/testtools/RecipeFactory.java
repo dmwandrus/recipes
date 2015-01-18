@@ -5,15 +5,16 @@
 package com.da.organizer.recipes.common.testtools;
 
 import com.da.organizer.recipes.common.Ingredient;
-import com.da.organizer.recipes.common.Ingredient;
-import com.da.organizer.recipes.common.unit.IngredientUnit;
 import com.da.organizer.recipes.common.unit.IngredientUnit;
 import com.da.organizer.recipes.common.Recipe;
-import com.da.organizer.recipes.common.Recipe;
-import com.da.organizer.recipes.common.RecipeIngredient;
 import com.da.organizer.recipes.common.RecipeIngredient;
 import com.da.organizer.recipes.common.RecipeInstruction;
-import com.da.organizer.recipes.common.RecipeInstruction;
+import com.da.organizer.recipes.common.descriptors.Form;
+import com.da.organizer.recipes.common.descriptors.Optionality;
+import com.da.organizer.recipes.common.descriptors.PrepDescriptor;
+import com.da.organizer.recipes.common.descriptors.Preparation;
+import com.da.organizer.recipes.common.descriptors.Temperature;
+import com.da.organizer.recipes.common.descriptors.UnitSize;
 import com.da.organizer.recipes.common.exception.IngredientParseException;
 
 /**
@@ -73,7 +74,13 @@ public class RecipeFactory {
         bread.getRecipeAmount().setAmountFromString("2");
         bread.getRecipeAmount().setUnit(IngredientUnit.slice);
         bread.setIngredientName("White Bread");
-        bread.setPrePreparation(" ");
+        bread.getUnitSizeDescriptor().add(UnitSize.large);
+        bread.getTempDescriptor().add(Temperature.roomtemp);
+        bread.getOptDescriptor().add(Optionality.additional);
+        bread.getPreparations().add(Preparation.sliced);
+        bread.getPrepDescriptor().add(PrepDescriptor.horizontally);
+        bread.getFormDescriptors().add(Form.ripe);
+        bread.setParensContents("or wheat bread");
         return bread;
     }
     
@@ -83,7 +90,6 @@ public class RecipeFactory {
         jam.getRecipeAmount().setAmountFromString("2");
         jam.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
         jam.setIngredientName("Thimbleberry Jam");
-        jam.setPrePreparation(" ");
         return jam;
     }
     
@@ -93,7 +99,6 @@ public class RecipeFactory {
         jam.getRecipeAmount().setAmountFromString("2");
         jam.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
         jam.setIngredientName("honey");
-        jam.setPrePreparation(" ");
         return jam;
     }
     
@@ -103,7 +108,6 @@ public class RecipeFactory {
         pb.getRecipeAmount().setAmountFromString("2.0");
         pb.getRecipeAmount().setUnit(IngredientUnit.tablespoon);
         pb.setIngredientName("Creamy Peanut Butter");
-        pb.setPrePreparation(" ");
         return pb;
     }
     

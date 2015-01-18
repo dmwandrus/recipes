@@ -6,6 +6,7 @@ package com.da.organizer.recipes.ui;
 
 import com.da.organizer.recipes.common.Recipe;
 import com.da.organizer.recipes.service.RecipeService;
+import com.da.organizer.recipes.ui.dataprovider.RecipeDataProvider;
 import com.da.organizer.recipes.ui.forms.SearchForm;
 import com.da.organizer.recipes.ui.previews.RecipePreview;
 import java.util.List;
@@ -13,6 +14,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
 
 /**
  *
@@ -47,13 +51,21 @@ public class HomePage extends StandardPage {
     }
     private void init()
     {
-        add(new ListView<Recipe>("allRecipes", recipesToView) {
-
+       
+        DataView<Recipe> recipeView = new DataView<Recipe>("pageable", new RecipeDataProvider(recipesToView)) {
+            
             @Override
-            protected void populateItem(ListItem<Recipe> item) {
-                Recipe recipe = (Recipe) item.getDefaultModel().getObject();
+            protected void populateItem(Item<Recipe> item) {
+                Recipe recipe = item.getModelObject();
                 item.add(new RecipePreview("recipePreview", recipe));
             }
-        });
+        };
+
+        recipeView.setItemsPerPage(10);
+        add(recipeView);
+
+        add(new PagingNavigator("navigator", recipeView));
+        
+        
     }
 }

@@ -55,15 +55,9 @@ public class RecipeView extends Panel{
             protected void populateItem(ListItem<RecipeIngredient> item)
             {
                 RecipeIngredient ri = (RecipeIngredient) item.getDefaultModel().getObject();
-                if(ri.getRecipeAmount() != null)
-                {
-                    String amount = ri.getRecipeAmount().prettyPrint();
-                    item.add(new Label("amountLabel", amount));
-                }else{
-                    item.add(new Label("amountLabel", ""));
-                }
-                String ingredientName = ri.getIngredientName();
-                item.add(new Label("ingredient", new PropertyModel(ri, "ingredientName")));
+                
+                item.add(new Label("originalString", new PropertyModel(ri, "originalString")));
+                
                 
 //                Add link to ingredient
 //                Ingredient retrievedIngredient = myRecipeService.retrieveIngredientByName(ingredientName);
@@ -72,13 +66,12 @@ public class RecipeView extends Panel{
 //                    
 //                }
                 
-                if(ri.getPrePreparation() != null)
-                {
-                    String prePrep = ri.getPrePreparation();
-                    item.add(new Label("prePrep", new PropertyModel(ri, "prePreparation")));
-                }else{
-                    item.add(new Label("prePrep", ""));
-                }
+//                if(ri.getPrePreparation() != null)
+//                {
+//                    item.add(new Label("prePrep", new PropertyModel(ri, "prePreparation")));
+//                }else{
+//                    item.add(new Label("prePrep", ""));
+//                }
             }
         });
         

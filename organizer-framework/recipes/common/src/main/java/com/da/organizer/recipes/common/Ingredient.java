@@ -4,11 +4,15 @@
  */
 package com.da.organizer.recipes.common;
 
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,7 +34,7 @@ import javax.persistence.Version;
                 query="SELECT ing.name FROM Ingredient ing"),
 }) 
 @Table(name = "INGREDIENT", uniqueConstraints=@UniqueConstraint(columnNames="ingredient_name"))
-public class Ingredient implements Persistable{
+public class Ingredient implements Persistable, Taggable{
 
     @Id
     @GeneratedValue
@@ -46,11 +50,17 @@ public class Ingredient implements Persistable{
     @Column(name = "ingredient_notes")
     private String notes;
     
-    @Column(name = "needs_review")
-    private Boolean needsReview;
+//    @ManyToMany
+//    private Set<IngredientCategory> categories;
+
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(name="INGREDIENT_TAG",
+        joinColumns={@JoinColumn(name="ingredient_id")},
+        inverseJoinColumns={@JoinColumn(name="tag_id")})
+    private Set<Tag> tags = new HashSet<Tag>();
     
-    @ManyToMany
-    private Set<IngredientCategory> categories;
+    
+    
     
     // TODO - add nutritional information
     public Ingredient()
@@ -58,13 +68,13 @@ public class Ingredient implements Persistable{
         
     }
 
-    public Set<IngredientCategory> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<IngredientCategory> categories) {
-        this.categories = categories;
-    }
+//    public Set<IngredientCategory> getCategories() {
+//        return categories;
+//    }
+//
+//    public void setCategories(Set<IngredientCategory> categories) {
+//        this.categories = categories;
+//    }
 
     public Long getId() {
         return id;
@@ -110,11 +120,13 @@ public class Ingredient implements Persistable{
         return b.toString();
     }
 
-    public Boolean getNeedsReview() {
-        return needsReview;
+    @Override
+    public void addTag(Tag tag) {
+        tags.add(tag);
     }
-
-    public void setNeedsReview(Boolean needsReview) {
-        this.needsReview = needsReview;
+    
+    public Set<Tag> getTags()
+    {
+        return tags;
     }
 }

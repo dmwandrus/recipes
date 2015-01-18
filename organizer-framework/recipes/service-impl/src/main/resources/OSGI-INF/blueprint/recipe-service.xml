@@ -19,4 +19,44 @@
         ref="recipeService">
     </service>
     
+    <bean 
+        id="readRecipesProcessor"
+        class="com.da.organizer.recipes.service.processors.ReadRecipesProcessor">
+        <property name="recipeService" ref="recipeService"/>
+    </bean>
+    
+    <bean 
+        id="duplicateProcessor"
+        class="com.da.organizer.recipes.service.processors.DuplicateRecipeProcessor">
+        <jpa:context unitname="recipe_pu" property="entityManager"/>
+        <tx:transaction method="*" value="Required"/>   
+    </bean>
+    
+    <bean 
+        id="ingredientMatchProcessor"
+        class="com.da.organizer.recipes.service.processors.IngredientProcessor">
+        <property name="recipeService" ref="recipeService"/>
+    </bean>
+    
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="read-new-recipes">
+            <from uri="file:recipeInbox" />
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="bean:readRecipesProcessor" />
+        </route>
+        
+        <route id="recipe-dupes">
+            <from uri="file:recipeOps/duplicateCheck/"/>
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="bean:duplicateProcessor"/>
+        </route>
+        
+        <route id="recipe-ingredient-match">
+            <from uri="file:recipeOps/ingredientMatch/"/>
+            <convertBodyTo type="java.lang.String"/>
+            <to uri="bean:ingredientMatchProcessor"/>
+        </route>
+    </camelContext>
+    
+    
 </blueprint>

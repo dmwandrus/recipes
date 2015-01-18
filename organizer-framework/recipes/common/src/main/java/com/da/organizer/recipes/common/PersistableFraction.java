@@ -48,6 +48,12 @@ public class PersistableFraction implements Serializable {
     public Integer getWhole() {
         return whole;
     }
+    
+    public Double asDouble()
+    {
+        Double fraction = numerator.doubleValue()/denominator.doubleValue();
+        return whole.doubleValue() + fraction;
+    }
 
     @Override
     public String toString() {

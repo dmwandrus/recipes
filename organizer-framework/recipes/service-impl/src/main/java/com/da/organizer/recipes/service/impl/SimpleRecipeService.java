@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.da.organizer.recipes.service.impl;
 
 import com.da.organizer.recipes.common.Ingredient;
@@ -12,6 +8,7 @@ import com.da.organizer.recipes.common.RecipeInstruction;
 import com.da.organizer.recipes.common.RecipeInstruction_;
 import com.da.organizer.recipes.common.Recipe_;
 import com.da.organizer.recipes.service.RecipeService;
+import com.da.organizer.recipes.service.processors.IngredientProcessor;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -54,6 +51,7 @@ public class SimpleRecipeService implements RecipeService {
     @Override
     public List<Recipe> retrieveRecipes() {
         TypedQuery<Recipe> findAllQuery = em.createNamedQuery("Recipe.findAll", Recipe.class);
+        findAllQuery.setMaxResults(50);
         return findAllQuery.getResultList();
     }
 
@@ -119,6 +117,7 @@ public class SimpleRecipeService implements RecipeService {
         //   else, just throw an error
         
         em.merge(recipe);
+        runProcessors(); // TODO: this is here for now. I'd prefer camel processors or something, but I"m feeling lazy
     }
     
     @Override
@@ -160,4 +159,13 @@ public class SimpleRecipeService implements RecipeService {
         
         return results;
     }
+
+    @Override
+    public void runProcessors() {
+        IngredientProcessor processor = new IngredientProcessor();
+        processor.setRecipeService(this);
+        processor.processRecipes("random string");
+    }
+    
+    
 }
